@@ -79,6 +79,11 @@ const eraserButton = document.getElementById('EraserButton');
 eraserButton.onclick = () => {
         board.changeSelection('Eraser');
 }
+
+const resetButton = document.getElementById('ResetButton');
+resetButton.onclick = () => {
+        board.resetBoard()
+}
 //delete cells at end
 
 

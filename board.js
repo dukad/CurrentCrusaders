@@ -177,4 +177,12 @@ export default class Board {
         return result;
     }
 
+    resetBoard() {
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                this.cell_matrix[i][j].erase();
+            }
+            }
+        }
+
 }
