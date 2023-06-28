@@ -16,7 +16,6 @@ export default class Board {
         this.value = '1';
         this.cellSelection = null;
         this.valueInput = document.getElementById('value'); // set the input value to the actual value
-
     }
 
     createMatrix() {
@@ -139,6 +138,23 @@ export default class Board {
         this.value = final;
         return true;
     }
+
+    changeColorScheme(string) {
+        console.log('changing color scheme');
+        if (string === 'green') {
+            this.backgroundColor = 0xC1BDB3;
+            this.borderColor = 0x000000;
+            this.partColor = 0x007600;
+        }
+
+        else if (string === 'pink'){
+            this.backgroundColor = 0x000000;
+            this.borderColor = 0x000000;
+            this.partColor = 0x000000;
+            console.log('now its pink');
+        }
+    }
+
 
     convertToNum(strnum) {
         var last = strnum[strnum.length - 1];

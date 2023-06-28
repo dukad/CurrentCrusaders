@@ -24,16 +24,18 @@ app.view.style.top = '10%';
 app.view.style.overflow = "hidden";
 app.view.style.border = '5px solid black'
 
+let colorScheme = 'green';
+let backgroundColor= 0xC1BDB3;
+let borderColor= 0x000000;
+let partColor= 0x007600;
+
 // declaring constant vars
 const dimension = 40;
 const grid_height = Math.floor(window.innerHeight / dimension);
 const grid_width = Math.floor(window.innerWidth / dimension);
-const backgroundColor = 0xffffff;
-const borderColor = 0xbbbbbb;
-const partColor = 0x111111;
 
 // create the board
-let board = new Board(grid_height, grid_width, dimension, app, backgroundColor, borderColor, partColor);
+let board = new Board(grid_height, grid_width, dimension, app, backgroundColor, borderColor, partColor, colorScheme);
 board.createMatrix();
 window.addEventListener("mousedown", () => {board.changeMode('mousedown')});
 window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
@@ -78,6 +80,11 @@ currentSourceButton.onclick = () => {
 const eraserButton = document.getElementById('EraserButton');
 eraserButton.onclick = () => {
         board.changeSelection('Eraser');
+}
+
+const colorButton = document.getElementById('ColorButton');
+colorButton.onclick = () => {
+        board.changeColorScheme('pink');
 }
 //delete cells at end
 
