@@ -1,0 +1,52 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#wrapper {
+    /* basically contains everything*/
+    width: 100%;
+    height: 100%;
+    font-family: "Droid Serif";
+    overflow: hidden;
+    text-align: center;
+}
+
+#headerbar {
+    height: 10%;
+    text-align: center;
+    font-size: 50px;
+}
+
+#menu {
+    /* everything on the left of the screen*/
+    width: 16%;
+    float:left; /* add this */
+    /*border: 1px solid red;*/
+}
+
+#toolbar {
+
+}
+
+#toolbar ul {
+    list-style-type: none;
+    /*list-style-position: inside;*/
+    text-align: center;
+    padding: 0 15%
+}
+#toolbar ul li {
+    margin: 10px;
+}
+
+#pixiapp {
+    /* nothing here does anything. DONT ADD*/
+}
+
+#levelinstructions {
+    float: right;
+    width: 17%;
+    /*border: 1px solid green;*/
+}

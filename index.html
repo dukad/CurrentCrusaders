@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Circuit</title>
+<!--    <link rel="shortcut icon" type="image/jpg" href="../static/images/favicon.jpg"/>-->
+    <script src="./js/pixi.min.js"></script>
+    <script src="./js/jquery-3.6.0.min.js"> </script>
+    <link rel="stylesheet" href="./indexStyle.css">
+
+</head>
+<body>
+
+    <div id="wrapper">
+        <header id="headerbar">
+            Open Circuit
+        </header>
+        <div id="menu">
+            <div>
+                <header>New Part</header>
+                <input id="value">
+            </div>
+            <div id="toolbar">
+                <ul>
+                    <li><button id="SelectButton">Select</button></li>
+                    <li><button id="EraserButton">Eraser</button></li>
+                    <li><button id="WireButton">Wire</button></li>
+                    <li><button id="ResistorButton">Resistor</button></li>
+                    <li><button id="VoltageSourceButton">Voltage Source</button></li>
+                    <li><button id="CurrentSourceButton">Current Source</button></li>
+                </ul>
+            </div>
+        </div>
+        <div id ="pixiapp">
+            <script class="simulator" type="module" src="./app.js"> </script>
+        </div>
+        <div id="levelinstructions">
+            <h>Welcome to Open Circuit!</h>
+            <p>This is our circuit builder and SPICE analysis tool, stay a while!</p>
+            <input>
+        </div>
+    </div>
+</body>
+</html>
