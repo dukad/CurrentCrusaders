@@ -49,6 +49,15 @@ export default class Board {
     changeSelection(string) {
         console.log('changing the selection to ', string);
         this.selection = string;
+        // change alpha level back?
+            for(let i = 0 ; i < this.grid_height; i++) {
+                for(let j = 0; j < this.grid_width; j++) {
+                if(this.cell_matrix[i][j].selected) {
+                    this.cell_matrix[i][j].graphic.alpha = 1;
+                    return;
+                }
+            }
+        }
     }
 
     changeCellSelection(cell) {

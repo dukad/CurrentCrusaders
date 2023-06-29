@@ -90,6 +90,10 @@ export default class Cell {
     }
 
     makeWire() {
+        // if (this.board.selection === "Wire") {
+        //     console.log ("its already a wire dumbo");
+        //     return;
+        // }
         if (this.part) {
             this.part.delete();
         }
@@ -225,7 +229,7 @@ export default class Cell {
                 this.draw_a_fake_resistor();
                 break;
             case 'VoltageSource':
-                console.log('hi')
+                // console.log('hi')
                 this.draw_a_fake_voltagesource();
                 break;
             case 'CurrentSource':
