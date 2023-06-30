@@ -24,10 +24,7 @@ app.view.style.top = '10%';
 app.view.style.overflow = "hidden";
 app.view.style.border = '5px solid black'
 
-let colorScheme = 'green';
-let backgroundColor= 0xC1BDB3;
-let borderColor= 0x000000;
-let partColor= 0x007600;
+
 
 // declaring constant vars
 const dimension = 40;
@@ -35,7 +32,7 @@ const grid_height = Math.floor(window.innerHeight / dimension);
 const grid_width = Math.floor(window.innerWidth / dimension);
 
 // create the board
-let board = new Board(grid_height, grid_width, dimension, app, backgroundColor, borderColor, partColor, colorScheme);
+let board = new Board(grid_height, grid_width, dimension, app, 'green');
 board.createMatrix();
 window.addEventListener("mousedown", () => {board.changeMode('mousedown')});
 window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
@@ -44,7 +41,7 @@ window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
 window.addEventListener("keydown", onKeyDown)
 function onKeyDown(event) {
         // console.log(event.key)
-        board.onKeyPress(event.key)
+        this.board.onKeyPress(event.key)
 }
 
 const valueInput = document.getElementById('value');
@@ -75,16 +72,23 @@ voltageSourceButton.onclick = () => {
 const currentSourceButton = document.getElementById('CurrentSourceButton');
 currentSourceButton.onclick = () => {
         board.changeSelection('CurrentSource');
+        console.log('hi');
 }
 
 const eraserButton = document.getElementById('EraserButton');
 eraserButton.onclick = () => {
         board.changeSelection('Eraser');
+
 }
 
 const colorButton = document.getElementById('ColorButton');
 colorButton.onclick = () => {
-        board.changeColorScheme('pink');
+        console.log('changing the color scheme');
+        if (board.colorScheme==='green') {
+                board.changeColorScheme('pink');
+        }
+        else
+                board.changeColorScheme('green');
 }
 //delete cells at end
 
