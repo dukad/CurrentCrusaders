@@ -4,6 +4,7 @@ export default class Resistor extends BasicComponent {
     constructor(x_coordinate, y_coordinate, dimension, app, color, orientation, value) {
         console.log('constructing Resistor')
         super(x_coordinate, y_coordinate, dimension, app, color, orientation, value);
+
     }
 
     draw() {

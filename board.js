@@ -1,22 +1,30 @@
 import Cell from "./cell.js";
 
 export default class Board {
-    constructor(grid_height, grid_width, cell_dimension, app, backgroundColor, borderColor, partColor) {
+    constructor(grid_height, grid_width, cell_dimension, app, colorScheme) {
         this.cell_matrix = [];
         this.grid_height = grid_height;
         this.grid_width = grid_width;
         this.cell_dimension = cell_dimension;
         this.app = app;
-        this.backgroundColor = backgroundColor;
-        this.borderColor = borderColor;
-        this.partColor = partColor
+        this.colorScheme = colorScheme;
+        if (colorScheme==='green') {
+            this.backgroundColor = 0xC1BDB3;
+            this.borderColor = 0x000000;
+            this.partColor = 0x007600;
+        }
+        if (colorScheme==='pink'){
+            this.setBackgroundColor(0xA54657);
+            this.borderColor = 0x582630;
+            this.partColor = 0xF7EE7F;
+            console.log('changing color scheme');
+        }
         this.mode = '';
         this.selection = 'Wire';
         this.rotation = 0;
         this.value = '1';
         this.cellSelection = null;
         this.valueInput = document.getElementById('value'); // set the input value to the actual value
-
     }
 
     createMatrix() {
@@ -32,6 +40,7 @@ export default class Board {
                 this.cell_matrix[i][j] = newCell;
             }
         }
+        console.log('hi')
     }
 
     delete() {
@@ -148,6 +157,33 @@ export default class Board {
         this.value = final;
         return true;
     }
+
+    setBackgroundColor(value){
+        this.backgroundColor = value;
+    }
+
+    changeColorScheme(string){
+        if (string==='pink') {
+            this.setBackgroundColor(0xA54657);
+            this.borderColor = 0x582630;
+            this.partColor = 0xF7EE7F;
+            this.colorScheme = 'pink';
+        }
+        if (string==='green'){
+            this.backgroundColor = 0xC1BDB3;
+            this.borderColor = 0x000000;
+            this.partColor = 0x007600;
+            this.colorScheme = 'green';
+        }
+        this.createMatrix();
+    }
+   /* createCircuitOne() {
+        for (let i = grid.height-35; i < grid.height-15; i++){
+            this.cell_matrix[i] = 1;
+        }
+    }
+
+    */
 
     convertToNum(strnum) {
         var last = strnum[strnum.length - 1];
