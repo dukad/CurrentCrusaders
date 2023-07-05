@@ -35,7 +35,9 @@ export default class Part {
     draw() {
         // virtual class meant to be overridden
     }
+    getPartName(){
 
+    }
     changeValue(value) {
     //    override if you have a value
     }

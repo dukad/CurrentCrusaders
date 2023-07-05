@@ -1,4 +1,5 @@
 import Cell from "./cell.js";
+
 export default class Board {
     constructor(grid_height, grid_width, cell_dimension, app, colorScheme) {
         this.cell_matrix = [];
@@ -161,21 +162,21 @@ export default class Board {
         this.backgroundColor = value;
     }
 
-    changeColorScheme(string){
-        if (string==='pink') {
+    changeColorScheme(string) {
+        if (string === 'pink') {
             this.setBackgroundColor(0xA54657);
             this.borderColor = 0x582630;
             this.partColor = 0xF7EE7F;
             this.colorScheme = 'pink';
         }
-        if (string==='green'){
+        if (string === 'green') {
             this.backgroundColor = 0xC1BDB3;
             this.borderColor = 0x000000;
             this.partColor = 0x007600;
             this.colorScheme = 'green';
         }
         this.createMatrix();
-    }
+        }
    /* createCircuitOne() {
         for (let i = grid.height-35; i < grid.height-15; i++){
             this.cell_matrix[i] = 1;

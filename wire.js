@@ -7,6 +7,10 @@ export default class Wire extends Part {
         this.connected_parts = new Set();
     }
 
+    getPartName(){
+        return 'Wire';
+    }
+
     draw() {
         /**
          * recreate the way the object looks on screen
