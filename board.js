@@ -1,5 +1,6 @@
 import Cell from "./cell.js";
 
+
 export default class Board {
     constructor(grid_height, grid_width, cell_dimension, app, colorScheme) {
         this.cell_matrix = [];
@@ -25,6 +26,10 @@ export default class Board {
         this.value = '1';
         this.cellSelection = null;
         this.valueInput = document.getElementById('value'); // set the input value to the actual value
+        this.cellMatrix1 = [this.grid_height][this.grid_width];
+        this.map = new Map();
+        this.map.set(1, this.cellMatrix1);
+
     }
 
     createMatrix() {
@@ -229,5 +234,19 @@ export default class Board {
             }
             }
         }
+
+    createBoard(int) {
+        let temp = this.map.get(int);
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                this.cell_matrix[i][j] = [...temp[i][j]];
+            }
+        }
+        this.createMatrix();
+    }
+
+    saveBoard() {
+        let temp
+    }
 
 }

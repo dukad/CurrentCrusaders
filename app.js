@@ -95,6 +95,11 @@ const resetButton = document.getElementById('ResetButton');
 resetButton.onclick = () => {
         board.resetBoard()
 }
+
+const saveButton = document.getElementById('SaveButton');
+saveButton.onclick = () => {
+        let level1 = saveBoard
+}
 //delete cells at end
 
 
