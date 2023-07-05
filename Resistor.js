@@ -16,6 +16,9 @@ export default class Resistor extends BasicComponent {
         this.#rotate_graphic();
         // this.app.stage.addChild(this.graphic);
     }
+    getPartName() {
+        return 'Resistor';
+    }
 
     #draw_a_resistor() {
         // math to draw a resistor

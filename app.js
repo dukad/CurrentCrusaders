@@ -41,7 +41,7 @@ window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
 window.addEventListener("keydown", onKeyDown)
 function onKeyDown(event) {
         // console.log(event.key)
-        this.board.onKeyPress(event.key)
+        board.onKeyPress(event.key)
 }
 
 const valueInput = document.getElementById('value');

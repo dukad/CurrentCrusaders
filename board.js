@@ -1,5 +1,6 @@
 import Cell from "./cell.js";
-
+import Wire from "./wire.js";
+import Resistor from "./resistor.js";
 export default class Board {
     constructor(grid_height, grid_width, cell_dimension, app, colorScheme) {
         this.cell_matrix = [];
@@ -162,20 +163,57 @@ export default class Board {
         this.backgroundColor = value;
     }
 
-    changeColorScheme(string){
-        if (string==='pink') {
+    changeColorScheme(string) {
+        if (string === 'pink') {
             this.setBackgroundColor(0xA54657);
             this.borderColor = 0x582630;
             this.partColor = 0xF7EE7F;
             this.colorScheme = 'pink';
         }
-        if (string==='green'){
+        if (string === 'green') {
             this.backgroundColor = 0xC1BDB3;
             this.borderColor = 0x000000;
             this.partColor = 0x007600;
             this.colorScheme = 'green';
         }
-        this.createMatrix();
+
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                let tempPart = this.cell_matrix[i][j].part;
+                let newCell = new Cell(j, i, this.cell_dimension, this.app, this.cell_matrix, this.partColor, this)
+                newCell.draw(this.backgroundColor, this.borderColor);
+                if (this.cell_matrix[i][j].part!=null) {
+                    this.cell_matrix[i][j].color = this.partColor;
+                    console.log(tempPart);
+                    switch (this.cell_matrix[i][j].part.getPartName()) {
+                        case 'Wire':
+                            let tempWire = new Wire(j, i, this.cell_dimension, this.app, this.partColor);
+                            tempWire.draw();
+                            console.log('has a wire');
+                            break;
+                        case 'Resistor':
+                            let tempResistor = new Resistor(j, i, this.cell_dimension, this.app, this.partColor);
+                            tempResistor.draw();
+                            console.log('has a resistor');
+                            break;
+                        case 'VoltageSource':
+                            let tempVoltageSource = new VoltageSOurce(j, i, this.cell_dimension, this.app, this.partColor);
+                            tempVoltageSource.draw();
+                            console.log('has a voltage source');
+                            break;
+                        case 'CurrentSource':
+                            let tempCurrentSource = new CurrentSource(j, i, this.cell_dimension, this.app, this.partColor);
+                            tempCurrentSource.draw();
+                            console.log('has a wire');
+                            break;
+                        default:
+                            break;
+                    }
+                    console.log('there is a part here');
+                }
+                this.cell_matrix[i][j] = newCell;
+            }
+        }
     }
    /* createCircuitOne() {
         for (let i = grid.height-35; i < grid.height-15; i++){
