@@ -1,5 +1,4 @@
 import Cell from "./cell.js";
-
 export default class Board {
     constructor(grid_height, grid_width, cell_dimension, app, colorScheme) {
         this.cell_matrix = [];
