@@ -12,7 +12,7 @@ const app = new PIXI.Application(
         autoDensity: true,
     }
 )
-
+//hello this is ethan
 app.ticker.maxFPS = 12;
 
 // tell the html document to display the pixi application
