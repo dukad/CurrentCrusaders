@@ -29,7 +29,7 @@ app.view.style.border = '5px solid black'
 
 
 // declaring constant vars
-const dimension = 40;
+const dimension = 60;
 const grid_height = Math.floor(window.innerHeight / dimension);
 const grid_width = Math.floor(window.innerWidth / dimension);
 

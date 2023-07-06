@@ -47,28 +47,28 @@ export default class Cell {
                 case 'Wire':
                     if (!this.isLocked) {
                         this.makeWire();
-                        break;
                     }
+                    break;
                 case 'Eraser':
                     if (!this.isLocked) {
                         this.erase();
-                        break;
                     }
+                    break;
                 case 'Resistor':
                     if (!this.isLocked) {
                         this.makeResistor();
-                        break;
                     }
+                    break;
                 case 'VoltageSource':
                     if (!this.isLocked) {
                         this.makeVoltageSource();
-                        break;
                     }
+                    break;
                 case 'CurrentSource':
                     if (!this.isLocked) {
                         this.makeCurrentSource();
-                        break;
                     }
+                    break;
                 default:
                     break;
             }
@@ -130,6 +130,18 @@ export default class Cell {
         this.part.draw();
     }
 
+    makeResistorVertical(){
+        this.printInfo();
+        if (this.part) {
+            this.part.delete();
+        }
+        let or = this.board.rotation+1;
+        let val = this.board.convertToNum(this.board.value);
+        this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.#autoConnectBasicComponent(or);
+        this.part.draw();
+    }
+
     makeVoltageSource() {
         if (this.part) {
             this.part.delete();
@@ -140,6 +152,17 @@ export default class Cell {
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
+    makeVoltageSourceVertical() {
+        if (this.part) {
+            this.part.delete();
+        }
+        let or = this.board.rotation+1;
+        let val = this.board.convertToNum(this.board.value);
+        this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.#autoConnectBasicComponent(or);
+        this.part.draw();
+    }
+
     makeCurrentSource() {
         if (this.part) {
             this.part.delete();
@@ -150,6 +173,17 @@ export default class Cell {
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
+    makeCurrentSourceVertical() {
+        if (this.part) {
+            this.part.delete();
+        }
+        let or = this.board.rotation+1;
+        let val = this.board.convertToNum(this.board.value);
+        this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.#autoConnectBasicComponent(or);
+        this.part.draw();
+    }
+
 
     printInfo() {
         // only used for debugging
