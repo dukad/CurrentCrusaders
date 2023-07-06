@@ -33,6 +33,7 @@ const dimension = 60;
 const grid_height = Math.floor(window.innerHeight / dimension);
 const grid_width = Math.floor(window.innerWidth / dimension);
 
+
 // create the board
 let board = new Board(grid_height, grid_width, dimension, app, 'green');
 let levels = new Levels(board);
@@ -98,7 +99,8 @@ valueInput.onchange = () => {
         resetButton.onclick = () => {
                 board.unlockBoard();
                 board.resetBoard()
-
+                console.log(window.innerWidth);
+                console.log(window.innerHeight);
         }
 
 const lvl1Button = document.getElementById('level1Button');
