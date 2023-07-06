@@ -10,14 +10,18 @@ export default class Levels {
         // this.board.createMatrix();
         for (let i = 0; i < this.board.grid_height; i++) {
             for (let j = 0; j < this.board.grid_width; j++) {
-                this.board.cell_matrix[i][j].makeWire();
+                //this.board.cell_matrix[i][j].makeWire();
+                this.board.cell_matrix[i][j].erase();
+                this.board.cell_matrix[i][j].isLocked = true;
             }
         }
-        this.board.cell_matrix[2][2].makeResistor();
-        this.board.cell_matrix[2][3].makeResistor();
-        this.board.cell_matrix[3][2].makeResistor();
-        this.board.cell_matrix[3][3].makeResistor();
-        this.board.cell_matrix[3][3].makeVoltageSource();
+        for (let i = 3; i < this.board.grid_height-3; i++) {
+            this.board.cell_matrix[3][i].isLocked = false;
+            this.board.cell_matrix[3][i].makeWire();
+            this.board.cell_matrix[3][i].isLocked = true;
+        }
+        this.board.cell_matrix[6][6].makeResistor();
+        this.board.cell_matrix[3][15].makeVoltageSource();
         console.log("level 1");
     }
 }
