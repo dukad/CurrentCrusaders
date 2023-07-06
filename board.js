@@ -25,8 +25,11 @@ export default class Board {
         this.value = '1';
         this.cellSelection = null;
         this.valueInput = document.getElementById('value'); // set the input value to the actual value
-    }
+        this.cellMatrix1 = [this.grid_height][this.grid_width];
+        this.map = new Map();
+        this.map.set(1, this.cellMatrix1);
 
+    }
     createMatrix() {
         // create every row in the matrix
         for (let i = 0; i < this.grid_height; i++) {

@@ -1,4 +1,5 @@
 import Board from "./board.js";
+import Levels from "./levels.js"
 
 const app = new PIXI.Application(
     {
@@ -33,6 +34,7 @@ const grid_width = Math.floor(window.innerWidth / dimension);
 
 // create the board
 let board = new Board(grid_height, grid_width, dimension, app, 'green');
+let levels = new Levels(board);
 board.createMatrix();
 window.addEventListener("mousedown", () => {board.changeMode('mousedown')});
 window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
@@ -93,7 +95,8 @@ colorButton.onclick = () => {
 
 const resetButton = document.getElementById('ResetButton');
 resetButton.onclick = () => {
-        board.resetBoard()
+        // board.resetBoard()
+        levels.createLevel1();
 }
 //delete cells at end
 
