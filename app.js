@@ -101,12 +101,6 @@ valueInput.onchange = () => {
 
         }
 
-
-
-const resetButton = document.getElementById('ResetButton');
-resetButton.onclick = () => {
-        board.resetBoard()
-}
 const lvl1Button = document.getElementById('level1Button');
 lvl1Button.onclick = () => {
         levels.createLevel1();
