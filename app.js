@@ -3,7 +3,7 @@ import Levels from "./levels.js"
 
 const app = new PIXI.Application(
     {
-        width: window.innerWidth*0.5738,
+        width: window.innerWidth*0.642,
         height: window.innerHeight * 0.96,
         //     width: 100,
         //     height: 40,
