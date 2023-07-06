@@ -233,7 +233,13 @@ export default class Board {
             }
             }
         }
-
+    unlockBoard(){
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                this.cell_matrix[i][j].isLocked = false;
+            }
+        }
+    }
     createBoard(int) {
         let temp = this.map.get(int);
         for (let i = 0; i < this.grid_height; i++) {

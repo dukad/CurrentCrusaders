@@ -7,18 +7,38 @@ export default class Levels {
     }
 
     createLevel1() {
-        // this.board.createMatrix();
+        this.clearLockBoard();
+        this.makeHorizontalWire(3, this.board.grid_height, 2);
+        this.makeHorizontalWire(3, this.board.grid_height, 8);
+        this.makeVerticalWire(3, this.board.grid_height-6, 3);
+        this.makeVerticalWire(2, this.board.grid_height-6, 15);
+        this.board.cell_matrix[5][3].makeResistorVertical();
+        this.board.cell_matrix[5][15].makeVoltageSourceVertical();
+        console.log("level 1");
+    }
+
+    clearLockBoard(){ //clears and locks board
         for (let i = 0; i < this.board.grid_height; i++) {
             for (let j = 0; j < this.board.grid_width; j++) {
-                this.board.cell_matrix[i][j].makeWire();
+                this.board.cell_matrix[i][j].erase();
+                this.board.cell_matrix[i][j].isLocked = true;
             }
         }
-        this.board.cell_matrix[2][2].makeResistor();
-        this.board.cell_matrix[2][3].makeResistor();
-        this.board.cell_matrix[3][2].makeResistor();
-        this.board.cell_matrix[3][3].makeResistor();
-        this.board.cell_matrix[3][3].makeVoltageSource();
-        console.log("level 1");
+    }
+    makeHorizontalWire(startIndex, finishIndex, heightIndex){
+        for (let i = startIndex; i<finishIndex; i++){
+            this.board.cell_matrix[heightIndex][i].isLocked = false;
+            this.board.cell_matrix[heightIndex][i].makeWire();
+            this.board.cell_matrix[heightIndex][i].isLocked = true;
+        }
+    }
+
+    makeVerticalWire(startIndex, finishIndex, positionIndex){
+        for (let i = startIndex; i<finishIndex; i++){
+            this.board.cell_matrix[i][positionIndex].isLocked = false;
+            this.board.cell_matrix[i][positionIndex].makeWire();
+            this.board.cell_matrix[i][positionIndex].isLocked = true;
+        }
     }
 }
 

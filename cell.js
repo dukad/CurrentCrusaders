@@ -20,6 +20,7 @@ export default class Cell {
         this.temporaryGraphic = null;
         this.hovering = 0;
         this.selected = false;
+        this.isLocked = false;
     }
 
     draw(backgroundColor, borderColor) {
@@ -31,43 +32,55 @@ export default class Cell {
     }
 
     delete() {
-        this.graphic.clear();
-        delete this.graphic;
-        this.part.delete();
-        delete this;
+            this.graphic.clear();
+            delete this.graphic;
+            this.part.delete();
+            delete this;
     }
 
     makePart() {
-        let selection = this.board.selection;
-        switch (selection) {
-            case 'Select':
-                this.selectCell();
-                break;
-            case 'Wire':
-                this.makeWire();
-                break;
-            case 'Eraser':
-                this.erase();
-                break;
-            case 'Resistor':
-                this.makeResistor();
-                break;
-            case 'VoltageSource':
-                this.makeVoltageSource();
-                break;
-            case 'CurrentSource':
-                this.makeCurrentSource();
-                break;
-            default:
-                break;
+            let selection = this.board.selection;
+            switch (selection) {
+                case 'Select':
+                    this.selectCell();
+                    break;
+                case 'Wire':
+                    if (!this.isLocked) {
+                        this.makeWire();
+                    }
+                    break;
+                case 'Eraser':
+                    if (!this.isLocked) {
+                        this.erase();
+                    }
+                    break;
+                case 'Resistor':
+                    if (!this.isLocked) {
+                        this.makeResistor();
+                    }
+                    break;
+                case 'VoltageSource':
+                    if (!this.isLocked) {
+                        this.makeVoltageSource();
+                    }
+                    break;
+                case 'CurrentSource':
+                    if (!this.isLocked) {
+                        this.makeCurrentSource();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
-    }
 
     erase() {
-        if (this.part) {
-            this.part.delete();
+        if (!this.isLocked) {
+            if (this.part) {
+                this.part.delete();
+            }
+            this.part = null;
         }
-        this.part = null;
     }
 
     selectCell() {
@@ -94,12 +107,14 @@ export default class Cell {
         //     console.log ("its already a wire dumbo");
         //     return;
         // }
-        if (this.part) {
-            this.part.delete();
+        if (!this.isLocked) {
+            if (this.part) {
+                this.part.delete();
+            }
+            this.part = new Wire(this.x, this.y, this.dimension, this.app, this.partColor)
+            this.#autoConnectWire();
+            this.part.draw();
         }
-        this.part = new Wire(this.x, this.y, this.dimension, this.app, this.partColor)
-        this.#autoConnectWire();
-        this.part.draw();
     }
 
     makeResistor() {
@@ -109,6 +124,18 @@ export default class Cell {
             this.part.delete();
         }
         let or = this.board.rotation;
+        let val = this.board.convertToNum(this.board.value);
+        this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.#autoConnectBasicComponent(or);
+        this.part.draw();
+    }
+
+    makeResistorVertical(){
+        this.printInfo();
+        if (this.part) {
+            this.part.delete();
+        }
+        let or = this.board.rotation+1;
         let val = this.board.convertToNum(this.board.value);
         this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
@@ -125,6 +152,16 @@ export default class Cell {
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
+    makeVoltageSourceVertical() {
+        if (this.part) {
+            this.part.delete();
+        }
+        let or = this.board.rotation+1;
+        let val = this.board.convertToNum(this.board.value);
+        this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.#autoConnectBasicComponent(or);
+        this.part.draw();
+    }
 
     makeCurrentSource() {
         if (this.part) {
@@ -136,6 +173,17 @@ export default class Cell {
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
+    makeCurrentSourceVertical() {
+        if (this.part) {
+            this.part.delete();
+        }
+        let or = this.board.rotation+1;
+        let val = this.board.convertToNum(this.board.value);
+        this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.#autoConnectBasicComponent(or);
+        this.part.draw();
+    }
+
 
     printInfo() {
         // only used for debugging

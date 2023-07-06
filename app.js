@@ -12,6 +12,7 @@ const app = new PIXI.Application(
         autoDensity: true,
     }
 )
+
 app.ticker.maxFPS = 12;
 
 // tell the html document to display the pixi application
@@ -28,7 +29,7 @@ app.view.style.border = '5px solid black'
 
 
 // declaring constant vars
-const dimension = 40;
+const dimension = 60;
 const grid_height = Math.floor(window.innerHeight / dimension);
 const grid_width = Math.floor(window.innerWidth / dimension);
 
@@ -41,6 +42,7 @@ window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
 
 
 window.addEventListener("keydown", onKeyDown)
+
 function onKeyDown(event) {
         // console.log(event.key)
         board.onKeyPress(event.key)
@@ -52,48 +54,59 @@ valueInput.onchange = () => {
         (board.changeValue(valueInput.value));
 }
 
-const selectButton = document.getElementById('SelectButton')
-selectButton.onclick = () => {
-        board.changeSelection('Select');
-}
-
-const wireButton = document.getElementById('WireButton');
-wireButton.onclick = () => {
-        board.changeSelection('Wire');
-}
-const resistorButton = document.getElementById('ResistorButton');
-resistorButton.onclick = () => {
-        board.changeSelection('Resistor');
-}
-
-const voltageSourceButton = document.getElementById('VoltageSourceButton');
-voltageSourceButton.onclick = () => {
-        board.changeSelection('VoltageSource');
-}
-
-const currentSourceButton = document.getElementById('CurrentSourceButton');
-currentSourceButton.onclick = () => {
-        board.changeSelection('CurrentSource');
-        console.log('hi');
-}
-
-const eraserButton = document.getElementById('EraserButton');
-eraserButton.onclick = () => {
-        board.changeSelection('Eraser');
-
-}
-
-const colorButton = document.getElementById('ColorButton');
-colorButton.onclick = () => {
-        console.log('changing the color scheme');
-        if (board.colorScheme==='green') {
-                board.changeColorScheme('pink');
+        const selectButton = document.getElementById('SelectButton')
+        selectButton.onclick = () => {
+                board.changeSelection('Select');
         }
-        else
-                board.changeColorScheme('green');
-}
 
-const resetButton = document.getElementById('ResetButton');
+        const wireButton = document.getElementById('WireButton');
+        wireButton.onclick = () => {
+                board.changeSelection('Wire');
+        }
+        const resistorButton = document.getElementById('ResistorButton');
+        resistorButton.onclick = () => {
+                board.changeSelection('Resistor');
+        }
+
+        const voltageSourceButton = document.getElementById('VoltageSourceButton');
+        voltageSourceButton.onclick = () => {
+                board.changeSelection('VoltageSource');
+        }
+
+        const currentSourceButton = document.getElementById('CurrentSourceButton');
+        currentSourceButton.onclick = () => {
+                board.changeSelection('CurrentSource');
+                console.log('hi');
+        }
+
+        const eraserButton = document.getElementById('EraserButton');
+        eraserButton.onclick = () => {
+                board.changeSelection('Eraser');
+
+        }
+
+        const colorButton = document.getElementById('ColorButton');
+        colorButton.onclick = () => {
+                console.log('changing the color scheme');
+                if (board.colorScheme === 'green') {
+                        board.changeColorScheme('pink');
+                } else
+                        board.changeColorScheme('green');
+        }
+
+        const resetButton = document.getElementById('ResetButton');
+        resetButton.onclick = () => {
+                board.unlockBoard();
+                board.resetBoard()
+
+        }
+
+        const saveButton = document.getElementById('SaveButton');
+        saveButton.onclick = () => {
+                levels.createLevel1();
+
+        }
+
 resetButton.onclick = () => {
         board.resetBoard()
 }
@@ -111,6 +124,7 @@ const lvl3Button = document.getElementById('level3Button');
 lvl3Button.onclick = () => {
         levels.createLevel3();
 }
+
 //delete cells at end
 
 
