@@ -3,7 +3,7 @@ import Levels from "./levels.js"
 
 const app = new PIXI.Application(
     {
-        width: window.innerWidth*0.65,
+        width: window.innerWidth*0.5738,
         height: window.innerHeight * 0.96,
         //     width: 100,
         //     height: 40,
@@ -101,13 +101,27 @@ valueInput.onchange = () => {
 
         }
 
-        const saveButton = document.getElementById('SaveButton');
-        saveButton.onclick = () => {
-                levels.createLevel1();
 
-        }
 
+const resetButton = document.getElementById('ResetButton');
+resetButton.onclick = () => {
+        board.resetBoard()
+}
+const lvl1Button = document.getElementById('level1Button');
+lvl1Button.onclick = () => {
+        levels.createLevel1();
+}
+
+/*const lvl2Button = document.getElementById('level2Button');
+lvl2Button.onclick = () => {
+        levels.createLevel2();
+}
+
+const lvl3Button = document.getElementById('level3Button');
+lvl3Button.onclick = () => {
+        levels.createLevel3();
+}
 
 //delete cells at end
-
+*/
 
