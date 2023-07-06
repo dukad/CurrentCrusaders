@@ -95,7 +95,11 @@ colorButton.onclick = () => {
 
 const resetButton = document.getElementById('ResetButton');
 resetButton.onclick = () => {
-        // board.resetBoard()
+        board.resetBoard()
+}
+
+const saveButton = document.getElementById('SaveButton');
+saveButton.onclick = () => {
         levels.createLevel1();
 }
 //delete cells at end
