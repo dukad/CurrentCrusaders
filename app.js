@@ -113,14 +113,17 @@ lvl2Button.onclick = () => {
         levels.createLevel2();
 }
 
-
-
-/*
 const lvl3Button = document.getElementById('level3Button');
 lvl3Button.onclick = () => {
         levels.createLevel3();
+        console.log('dafuq goin on');
 }
 
+const lvl4Button = document.getElementById('level4Button');
+lvl4Button.onclick = () => {
+        console.log('lvl4');
+        levels.createLevel4();
+}
 //delete cells at end
-*/
+
 
