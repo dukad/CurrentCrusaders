@@ -56,7 +56,7 @@ export default class Cell {
                     break;
                 case 'Resistor':
                     if (!this.isLocked) {
-                        this.makeResistor();
+                        this.makeResistor(1);
                     }
                     break;
                 case 'VoltageSource':
@@ -117,68 +117,68 @@ export default class Cell {
         }
     }
 
-    makeResistor() {
+    makeResistor(num) {
         console.log('running makeResistor');
         this.printInfo();
         if (this.part) {
             this.part.delete();
         }
         let or = this.board.rotation;
-        let val = this.board.convertToNum(this.board.value);
+        let val = num;
         this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
 
-    makeResistorVertical(){
+    makeResistorVertical(num){
         this.printInfo();
         if (this.part) {
             this.part.delete();
         }
         let or = this.board.rotation+1;
-        let val = this.board.convertToNum(this.board.value);
+        let val = num;
         this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
 
-    makeVoltageSource() {
+    makeVoltageSource(num) {
         if (this.part) {
             this.part.delete();
         }
         let or = this.board.rotation;
-        let val = this.board.convertToNum(this.board.value);
+        let val = num;
         this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
-    makeVoltageSourceVertical() {
+    makeVoltageSourceVertical(num) {
         if (this.part) {
             this.part.delete();
         }
         let or = this.board.rotation+1;
-        let val = this.board.convertToNum(this.board.value);
+        let val = num;
         this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
 
-    makeCurrentSource() {
+    makeCurrentSource(num) {
         if (this.part) {
             this.part.delete();
         }
         let or = this.board.rotation;
-        let val = this.board.convertToNum(this.board.value);
+        let val = num;
         this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
-    makeCurrentSourceVertical() {
+    makeCurrentSourceVertical(num) {
         if (this.part) {
             this.part.delete();
         }
         let or = this.board.rotation+1;
-        let val = this.board.convertToNum(this.board.value);
+        let val = num;
         this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
