@@ -48,13 +48,13 @@ export default class Board {
         console.log('hi')
     }
 
-    delete() {
-        for (let i = 0; i < this.grid_height; i++) {
-            for (let j = 0; j < this.grid_width; j++) {
-                this.cell_matrix[i][j].delete();
-            }
-        }
-    }
+    // delete() {
+    //     for (let i = 0; i < this.grid_height; i++) {
+    //         for (let j = 0; j < this.grid_width; j++) {
+    //             this.cell_matrix[i][j].delete();
+    //         }
+    //     }
+    // }
 
     changeMode(string) {
         this.mode = string;

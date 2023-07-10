@@ -269,6 +269,10 @@ export default class Cell {
             this.graphic.alpha = (0.9);
         }
 
+        if(this.part !== null && this.part.text !== null) {
+            console.log("wassup");
+            this.app.stage.removeChild(this.part.text);
+        }
         // checking if its not blank space or a wire
         if(this.part && !(this.part.value === undefined)) {
             console.log(this.part.value);
@@ -276,6 +280,7 @@ export default class Cell {
             this.part.text.x = this.x*60;
             this.part.text.y = this.y*60;
             this.app.stage.addChild(this.part.text);
+
         }
     }
 

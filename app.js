@@ -99,8 +99,6 @@ valueInput.onchange = () => {
         resetButton.onclick = () => {
                 board.unlockBoard();
                 board.resetBoard()
-                console.log(window.innerWidth);
-                console.log(window.innerHeight);
         }
 
 const lvl1Button = document.getElementById('level1Button');
