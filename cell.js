@@ -21,6 +21,7 @@ export default class Cell {
         this.hovering = 0;
         this.selected = false;
         this.isLocked = false;
+        this.amptext = new PIXI.Text('', {fontFamily : 'Arial', fontSize: 10, fill : 0x04b504, align : 'center'});
     }
 
     draw(backgroundColor, borderColor) {
@@ -61,12 +62,12 @@ export default class Cell {
                     break;
                 case 'VoltageSource':
                     if (!this.isLocked) {
-                        this.makeVoltageSource();
+                        this.makeVoltageSource(1);
                     }
                     break;
                 case 'CurrentSource':
                     if (!this.isLocked) {
-                        this.makeCurrentSource();
+                        this.makeCurrentSource(1);
                     }
                     break;
                 default:
@@ -300,6 +301,10 @@ export default class Cell {
         // checking if its not blank space or a wire
         if(this.part && !(this.part.value === undefined)) {
             console.log(this.part.value);
+            const message = new PIXI.Text(this.part.value);
+            message.x = this.x*60;
+            message.y = this.y*60;
+            this.app.stage.addChild(message);
         }
     }
 

@@ -112,6 +112,9 @@ const lvl2Button = document.getElementById('level2Button');
 lvl2Button.onclick = () => {
         levels.createLevel2();
 }
+
+
+
 /*
 const lvl3Button = document.getElementById('level3Button');
 lvl3Button.onclick = () => {
