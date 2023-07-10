@@ -14,8 +14,8 @@ export default class Levels {
         this.makeHorizontalWire(3, 16, 8);
         this.makeVerticalWire(3, 16-7, 3);
         this.makeVerticalWire(2, 16-7, 15);
-        this.board.cell_matrix[5][3].makeResistorVertical(10);
-        this.board.cell_matrix[5][15].makeVoltageSourceVertical(5);
+        this.board.cell_matrix[5][3].makeResistor(10,1);
+        this.board.cell_matrix[5][15].makeVoltageSource(5,1);
         console.log("level 1");
     }
 
@@ -25,10 +25,11 @@ export default class Levels {
         this.makeHorizontalWire(3, 16, 8);
         this.makeVerticalWire(3, 16-7, 3);
         this.makeVerticalWire(2, 16-7, 15);
-        this.board.cell_matrix[2][6].makeResistor(10);
-        this.board.cell_matrix[2][12].makeResistor(10);
+        this.board.cell_matrix[2][6].or = 1;
+        this.board.cell_matrix[2][6].makeResistor(10,0);
+        this.board.cell_matrix[2][12].makeResistor(10,0);
             this.board.cell_matrix[2][12].value = 10;
-        this.board.cell_matrix[8][9].makeCurrentSource(15);
+        this.board.cell_matrix[8][9].makeCurrentSource(15, 0);
         console.log("level 1");
     }
     clearLockBoard(){ //clears and locks board

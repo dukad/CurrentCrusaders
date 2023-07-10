@@ -56,17 +56,17 @@ export default class Cell {
                     break;
                 case 'Resistor':
                     if (!this.isLocked) {
-                        this.makeResistor(1);
+                        this.makeResistor(1,this.board.rotation);
                     }
                     break;
                 case 'VoltageSource':
                     if (!this.isLocked) {
-                        this.makeVoltageSource(1);
+                        this.makeVoltageSource(1, this.board.rotation);
                     }
                     break;
                 case 'CurrentSource':
                     if (!this.isLocked) {
-                        this.makeCurrentSource(1);
+                        this.makeCurrentSource(1, this.board.rotation);
                     }
                     break;
                 default:
@@ -117,59 +117,31 @@ export default class Cell {
         }
     }
 
-    makeResistor(num) {
+    makeResistor(val, or) {
         console.log('running makeResistor');
         this.printInfo();
         if (this.part) {
             this.part.delete();
         }
-        let or = this.board.rotation;
-        let val = num;
         this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
 
-    makeResistorVertical(num){
-        this.printInfo();
+    makeVoltageSource(num, or) {
         if (this.part) {
             this.part.delete();
         }
-        let or = this.board.rotation+1;
-        let val = num;
-        this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, num);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
 
-    makeVoltageSource(num) {
+    makeCurrentSource(num, or) {
         if (this.part) {
             this.part.delete();
         }
-        let or = this.board.rotation;
-        let val = num;
-        this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
-        this.#autoConnectBasicComponent(or);
-        this.part.draw();
-    }
-    makeVoltageSourceVertical(num) {
-        if (this.part) {
-            this.part.delete();
-        }
-        let or = this.board.rotation+1;
-        let val = num;
-        this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
-        this.#autoConnectBasicComponent(or);
-        this.part.draw();
-    }
-
-    makeCurrentSource(num) {
-        if (this.part) {
-            this.part.delete();
-        }
-        let or = this.board.rotation;
-        let val = num;
-        this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, num);
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
@@ -315,6 +287,8 @@ export default class Cell {
         this.hovering = 0;
         if(this.part && !(this.part.value === undefined)) {
             this.app.stage.removeChild(this.part.text);
+            this.part.text = new PIXI.Text('');
+            console.log('removing text');
         }
     }
 

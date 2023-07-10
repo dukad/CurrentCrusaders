@@ -52,7 +52,9 @@ export default class Part {
             this.disconnect(p);
             p.draw();
         });
+        this.text.text = '';
         this.graphic.clear();
+
         delete this.graphic;
         delete this;
     }
