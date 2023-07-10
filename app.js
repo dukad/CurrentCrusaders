@@ -4,7 +4,7 @@ import Levels from "./levels.js"
 const app = new PIXI.Application(
     {
         width: window.innerWidth*0.642,
-        height: window.innerHeight * 0.96,
+        height: window.innerHeight * 0.9,
         //     width: 100,
         //     height: 40,
         resolution: devicePixelRatio = 5,

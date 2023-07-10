@@ -286,6 +286,8 @@ export default class Cell {
             case 'Wire':
                 this.#delete_temporary_graphic();
                 break;
+            // case 'Select' :
+            //     console.log(this.part.value);
             default:
                 break;
 
@@ -293,6 +295,11 @@ export default class Cell {
 
         if (!(this.selected)) {
             this.graphic.alpha = (0.9);
+        }
+
+        // checking if its not blank space or a wire
+        if(this.part && !(this.part.value === undefined)) {
+            console.log(this.part.value);
         }
     }
 
@@ -342,6 +349,7 @@ export default class Cell {
         return result;
     }
 
+    //used for hovering to show what it would look like
     draw_a_fake_resistor() {
         // draw
         if (this.temporaryGraphic) {
