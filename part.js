@@ -9,7 +9,7 @@ export default class Part {
         this.app = app;
         this.graphic = new PIXI.Graphics;
         this.app.stage.addChild(this.graphic);
-        this.text = new PIXI.Text("2");
+        this.text = new PIXI.Text("");
 
     }
 

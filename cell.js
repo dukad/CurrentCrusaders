@@ -300,6 +300,7 @@ export default class Cell {
         // checking if its not blank space or a wire
         if(this.part && !(this.part.value === undefined)) {
             console.log(this.part.value);
+            this.part.text = new PIXI.Text(this.part.value);
             this.part.text.x = this.x*60;
             this.part.text.y = this.y*60;
             this.app.stage.addChild(this.part.text);
