@@ -90,9 +90,9 @@ valueInput.onchange = () => {
         colorButton.onclick = () => {
                 console.log('changing the color scheme');
                 if (board.colorScheme === 'green') {
-                        board.changeColorScheme('pink');
+                        board.drawColorScheme('pink');
                 } else
-                        board.changeColorScheme('green');
+                        board.drawColorScheme('green');
         }
 
         const resetButton = document.getElementById('ResetButton');

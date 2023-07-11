@@ -166,8 +166,7 @@ export default class Board {
     setBackgroundColor(value){
         this.backgroundColor = value;
     }
-
-    changeColorScheme(string) {
+    changeColorScheme(string){
         if (string === 'pink') {
             this.setBackgroundColor(0xA54657);
             this.borderColor = 0x582630;
@@ -180,15 +179,42 @@ export default class Board {
             this.partColor = 0x007600;
             this.colorScheme = 'green';
         }
-        this.createMatrix();
+    }
+    drawColorScheme(string) {
+        /*
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                if (this.cell_matrix[i][j].part===null){
+                    console.log('hialkdjgn');
+                    this.cell_matrix[i][j].erase();
+                    let newCell = new Cell(j, i, this.cell_dimension, this.app, this.cell_matrix, this.partColor, this)
+                    newCell.draw(this.backgroundColor, this.borderColor);
+                    this.cell_matrix[i][j] = newCell;
+                }
+                else{
+                    let tempValue = this.cell_matrix[i][j].value;
+                    let newResistor = new Resistor()
+                }
+            }
         }
-   /* createCircuitOne() {
-        for (let i = grid.height-35; i < grid.height-15; i++){
-            this.cell_matrix[i] = 1;
+        */
+        let tempArray = new Array(this.cell_matrix.height);
+        for (let i = 0; i < this.grid_height; i++) {
+            tempArray[i] = [];
+        }
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                tempArray[i][j] = this.cell_matrix[i][j];
+            }
+        }
+        this.changeColorScheme(string);
+        this.createMatrix();
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                this.cell_matrix[i][j] = tempArray[i][j];
+            }
         }
     }
-
-    */
 
     convertToNum(strnum) {
         var last = strnum[strnum.length - 1];
@@ -233,21 +259,12 @@ export default class Board {
             }
             }
         }
-    unlockBoard(){
+    unlockBoard() {
         for (let i = 0; i < this.grid_height; i++) {
             for (let j = 0; j < this.grid_width; j++) {
                 this.cell_matrix[i][j].isLocked = false;
             }
         }
-    }
-    createBoard(int) {
-        let temp = this.map.get(int);
-        for (let i = 0; i < this.grid_height; i++) {
-            for (let j = 0; j < this.grid_width; j++) {
-                this.cell_matrix[i][j] = [...temp[i][j]];
-            }
-        }
-        this.createMatrix();
     }
 
 }
