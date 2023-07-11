@@ -145,17 +145,6 @@ export default class Cell {
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
-    makeCurrentSourceVertical(num) {
-        if (this.part) {
-            this.part.delete();
-        }
-        let or = this.board.rotation+1;
-        let val = num;
-        this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
-        this.#autoConnectBasicComponent(or);
-        this.part.draw();
-    }
-
 
     printInfo() {
         // only used for debugging
@@ -270,15 +259,14 @@ export default class Cell {
         }
 
         if(this.part !== null && this.part.text !== null) {
-            console.log("wassup");
             this.app.stage.removeChild(this.part.text);
         }
         // checking if its not blank space or a wire
         if(this.part && !(this.part.value === undefined)) {
             console.log(this.part.value);
             this.part.text = new PIXI.Text(this.part.value);
-            this.part.text.x = this.x*60;
-            this.part.text.y = this.y*60;
+            this.part.text.x = this.x * this.dimension;
+            this.part.text.y = this.y * this.dimension;
             this.app.stage.addChild(this.part.text);
 
         }
