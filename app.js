@@ -100,7 +100,10 @@ valueInput.onchange = () => {
                 board.unlockBoard();
                 board.resetBoard()
         }
-
+const checkButton = document.getElementById('CheckButton');
+checkButton.onclick = () => {
+        //here would be the solver code call lol
+}
 const lvl1Button = document.getElementById('level1Button');
 lvl1Button.onclick = () => {
         levels.createLevel1();
