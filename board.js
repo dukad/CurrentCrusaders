@@ -181,39 +181,10 @@ export default class Board {
         }
     }
     drawColorScheme(string) {
-        /*
-        for (let i = 0; i < this.grid_height; i++) {
-            for (let j = 0; j < this.grid_width; j++) {
-                if (this.cell_matrix[i][j].part===null){
-                    console.log('hialkdjgn');
-                    this.cell_matrix[i][j].erase();
-                    let newCell = new Cell(j, i, this.cell_dimension, this.app, this.cell_matrix, this.partColor, this)
-                    newCell.draw(this.backgroundColor, this.borderColor);
-                    this.cell_matrix[i][j] = newCell;
-                }
-                else{
-                    let tempValue = this.cell_matrix[i][j].value;
-                    let newResistor = new Resistor()
-                }
-            }
-        }
-        */
-        let tempArray = new Array(this.cell_matrix.height);
-        for (let i = 0; i < this.grid_height; i++) {
-            tempArray[i] = [];
-        }
-        for (let i = 0; i < this.grid_height; i++) {
-            for (let j = 0; j < this.grid_width; j++) {
-                tempArray[i][j] = this.cell_matrix[i][j];
-            }
-        }
+        let tempArray = Array.from(this.cell_matrix);
         this.changeColorScheme(string);
         this.createMatrix();
-        for (let i = 0; i < this.grid_height; i++) {
-            for (let j = 0; j < this.grid_width; j++) {
-                this.cell_matrix[i][j] = tempArray[i][j];
-            }
-        }
+        // this.cell_matrix.part = Array.from(tempArray.part);
     }
 
     convertToNum(strnum) {

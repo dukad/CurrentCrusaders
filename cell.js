@@ -112,7 +112,7 @@ export default class Cell {
                 this.part.delete();
             }
             this.part = new Wire(this.x, this.y, this.dimension, this.app, this.partColor)
-            this.#autoConnectWire();
+            this.autoConnectWire();
             this.part.draw();
         }
     }
@@ -169,7 +169,7 @@ export default class Cell {
         }
     }
 
-    #autoConnectWire() {
+    autoConnectWire() {
     //    check in 4 cardinal directions and check if the cell has a part in it
         try {
             let checkingPart = this.matrix[this.y][this.x - 1].part;
@@ -270,7 +270,6 @@ export default class Cell {
         }
 
         if(this.part !== null && this.part.text !== null) {
-            console.log("wassup");
             this.app.stage.removeChild(this.part.text);
         }
         // checking if its not blank space or a wire
