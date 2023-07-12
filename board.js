@@ -63,17 +63,20 @@ export default class Board {
     }
     drawColorScheme(string) {
         this.changeColorScheme(string);
+        console.log(this.colorScheme);
         for (let i = 0; i < this.grid_height; i++) {
             for (let j = 0; j < this.grid_width; j++) {
                 let tempPart = this.cell_matrix[i][j].part;
                 if (tempPart) {
                     console.log('has a part');
-                    switch(tempPart){
-                        case Wire:
-                            let temp = new Wire(this.cell_matrix[i],this.cell_matrix[j],this.cell_dimension, this.app, this.colorScheme);
-                            temp.makeWire();
+                    switch(tempPart.name){
+                        case 'Wire':
+                            let temp = new Wire(this.cell_matrix[i],this.cell_matrix[j],this.cell_dimension, this.app, this.partColor);
+                            console.log(temp.color);
+                            temp.draw();
+                            console.log('color is changed?');
                             this.cell_matrix[i][j] = temp;
-                            console.log('this is a wire');
+                            break;
                     }
                 } else {
                     console.log('doesnt have a part');

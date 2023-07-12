@@ -5,6 +5,7 @@ export default class Wire extends Part {
         super(x_coordinate, y_coordinate, dimension, app, color);
         this.color = color;
         this.connected_parts = new Set();
+        this.name = 'Wire';
     }
 
     getPartName(){
@@ -15,7 +16,7 @@ export default class Wire extends Part {
         /**
          * recreate the way the object looks on screen
          */
-        // console.log('running draw in wire')
+         console.log('running draw in wire')
         this.graphic.clear()
         if ((this.connected_parts.size !== 2)) { //if you want to see a big circle
             this.#create_node(this.dimension / 6); // create a big node
