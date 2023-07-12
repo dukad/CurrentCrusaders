@@ -74,3 +74,4 @@ def opanalysis(netlist):
         output += '\n' + str(node) + ' '
         output += str(float(node))
     return output
+

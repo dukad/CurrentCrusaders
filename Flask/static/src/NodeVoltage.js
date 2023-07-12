@@ -349,7 +349,7 @@ export default class NodeVoltage {
             console.log('its a source!')
             let seen = new Set()
             seen.add(comp)
-            let checkCell = comp.find_cell(comp.orientation)
+            let checkCell = comp.find_direction(comp.orientation)
             let next = this.direction_recurse(checkCell, seen, comp)
             console.log('after checking in direction', comp.orientation, 'at cell', checkCell.x, checkCell.y)
             console.log('the next item found was', next.x, next.y)
