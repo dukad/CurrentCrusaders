@@ -1,6 +1,6 @@
 import Board from "./board.js";
 import Levels from "./levels.js"
-import NodeVoltage from "./NodeVoltage";
+import NodeVoltage from "./NodeVoltage.js";
 
 const app = new PIXI.Application(
     {
@@ -14,6 +14,7 @@ const app = new PIXI.Application(
     }
 )
 app.ticker.maxFPS = 12;
+app.resize();
 
 // tell the html document to display the pixi application
 document.body.appendChild(app.view);
@@ -88,8 +89,8 @@ valueInput.onchange = () => {
 
         const colorButton = document.getElementById('ColorButton');
         colorButton.onclick = () => {
-                new NodeVoltage(this.board.cell_matrix).solve();
-        //         console.log('changing the color scheme');
+                let test = new NodeVoltage(board.cell_matrix)
+                test.solve()        //         console.log('changing the color scheme');
         //         if (board.colorScheme === 'green') {
         //                 board.changeColorScheme('pink');
         //         } else

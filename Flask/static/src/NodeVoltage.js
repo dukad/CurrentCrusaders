@@ -1,11 +1,11 @@
 import Cell from "./cell.js";
 // import Resistor from "./Resistor.js";
 import VoltageSource from "./VoltageSource.js";
-import CurrentSource from "./CurrentSource";
-import Component from "./BasicComponent";
+import CurrentSource from "./CurrentSource.js";
+import Component from "./BasicComponent.js";
 import NetItem from "./NetItem.js";
 import Reference from "./Reference.js";
-// import SendToPython from "./SendToPython.js";
+import SendToPython from "./SendToPython.js";
 
 //global var
 let netnum;
@@ -13,47 +13,47 @@ let referenceNum;
 
 export default class NodeVoltage {
     constructor(matrix) {
-        this.matrix = matrix
+        this.matrix = matrix;
         // console.log(this.matrix)
     }
 
     solve() {
-        console.log('solving')
+        console.log('solving');
         //find a wire on the matrix
-        let part = this.find_a_part()
+        let part = this.find_a_part();
         if (!(part instanceof Cell)) {
-            alert('No Wires or Components Found!')
-            return null
+            alert('No Wires or Components Found!');
+            return null;
         }
         //get a list of all significant nodes
-        let nodes = this.find_all_nodes(part)
+        let nodes = this.find_all_nodes(part);
         if (nodes instanceof Set) {
             // if nodes were found
-            let y = 0
+            let y = 0;
             let gnd;
             nodes.forEach(node => { // find the bottom most node in the list to designate as the ground node
                 if (node.y > y) {
-                    gnd = node
-                    y = node.y
+                    gnd = node;
+                    y = node.y;
                 }
-                node.reference = null
+                node.reference = null;
             })
-            gnd.reference = new Reference(0, gnd)
+            gnd.reference = new Reference(0, gnd);
         }
         // Create a net list to be solved using PySpice
-        let list = this.create_net_list(nodes)
-        // console.log(list.length)
+        let list = this.create_net_list(nodes);
+        // console.log(list.length);
 
-        let string = '' // string to become the netlist to send to python
+        let string = ''; // string to become the netlist to send to python
         let reference_set = new Set() // add all references to this to be used when displaying values
 
         for(let i = 0; i <list.length ; i++) {
-            console.log(list[i])
-            this.check_orientation(list[i])
-            list[i].create_string()
-            string += list[i].string + '\n'
-            reference_set.add(list[i].node1)
-            reference_set.add(list[i].node2)
+            console.log(list[i]);
+            this.check_orientation(list[i]);
+            list[i].create_string();
+            string += list[i].string + '\n';
+            reference_set.add(list[i].node1);
+            reference_set.add(list[i].node2);
         }
         console.log('Netlist is')
         console.log(string)
@@ -62,9 +62,9 @@ export default class NodeVoltage {
         reference_set.forEach(item => {
             reference_list.push(item)
         })
-
-        // SendToPython(string, reference_list, list)
         console.log("WERE SENDING TO PYTHONNN");
+
+        SendToPython(string, reference_list, list)
     }
 
     find_a_part() {
