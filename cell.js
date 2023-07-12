@@ -254,10 +254,6 @@ export default class Cell {
 
         }
 
-        if (!(this.selected)) {
-            this.graphic.alpha = (0.9);
-        }
-
         if(this.part !== null && this.part.text !== null) {
             this.app.stage.removeChild(this.part.text);
         }
@@ -270,6 +266,15 @@ export default class Cell {
             this.app.stage.addChild(this.part.text);
 
         }
+        if (!(this.selected)) {
+            this.graphic.alpha = (0.9);
+            if(this.board.colorScheme === 'green') {
+                console.log("green");
+                console.log("hovering " + this.x + " " + this.y);
+            }
+        }
+        console.log(this.graphic.alpha + " " + this.graphic.temporaryGraphic);
+
     }
 
     #onMouseOut() {

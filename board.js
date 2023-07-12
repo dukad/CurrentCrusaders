@@ -15,7 +15,7 @@ export default class Board {
             this.partColor = 0x007600;
         }
         if (colorScheme==='pink'){
-            this.setBackgroundColor(0xA54657);
+            this.backgroundColor = 0xA54657;
             this.borderColor = 0x582630;
             this.partColor = 0xF7EE7F;
             console.log('changing color scheme');
@@ -168,8 +168,10 @@ export default class Board {
     }
 
     changeColorScheme(string) {
+        this.resetBoard();
+
         if (string === 'pink') {
-            this.setBackgroundColor(0xA54657);
+            this.backgroundColor = 0xA54657;
             this.borderColor = 0x582630;
             this.partColor = 0xF7EE7F;
             this.colorScheme = 'pink';
@@ -179,6 +181,11 @@ export default class Board {
             this.borderColor = 0x000000;
             this.partColor = 0x007600;
             this.colorScheme = 'green';
+        }
+        for(let i = 0 ; i < this.grid_height; i++) {
+            for(let j = 0; j < this.grid_width; j++) {
+                this.cell_matrix[i][j].graphic.alpha = 1;
+            }
         }
         this.createMatrix();
         }
