@@ -1,5 +1,5 @@
 import Cell from "./cell.js";
-
+import Wire from "./wire.js";
 
 export default class Board {
     constructor(grid_height, grid_width, cell_dimension, app, colorScheme) {
@@ -15,7 +15,7 @@ export default class Board {
             this.partColor = 0x007600;
         }
         if (colorScheme==='pink'){
-            this.setBackgroundColor(0xA54657);
+            this.backgroundColor = (0xA54657);
             this.borderColor = 0x582630;
             this.partColor = 0xF7EE7F;
             console.log('changing color scheme');
@@ -46,6 +46,44 @@ export default class Board {
             }
         }
         console.log('hi')
+    }
+    changeColorScheme(string){
+        if (string === 'pink') {
+            this.backgroundColor = (0xA54657);
+            this.borderColor = 0x582630;
+            this.partColor = 0xF7EE7F;
+            this.colorScheme = 'pink';
+        }
+        if (string === 'green') {
+            this.backgroundColor = 0xC1BDB3;
+            this.borderColor = 0x000000;
+            this.partColor = 0x007600;
+            this.colorScheme = 'green';
+        }
+    }
+    drawColorScheme(string) {
+        this.changeColorScheme(string);
+        for (let i = 0; i < this.grid_height; i++) {
+            for (let j = 0; j < this.grid_width; j++) {
+                let tempPart = this.cell_matrix[i][j].part;
+                if (tempPart) {
+                    console.log('has a part');
+                    switch(tempPart){
+                        case Wire:
+                            let temp = new Wire(this.cell_matrix[i],this.cell_matrix[j],this.cell_dimension, this.app, this.colorScheme);
+                            temp.makeWire();
+                            this.cell_matrix[i][j] = temp;
+                            console.log('this is a wire');
+                    }
+                } else {
+                    console.log('doesnt have a part');
+                    let newCell = new Cell(j, i, this.cell_dimension, this.app, this.cell_matrix, this.partColor, this)
+                    newCell.draw(this.backgroundColor, this.borderColor);
+                    this.cell_matrix[i][j] = newCell;
+                }
+            }
+        }
+
     }
 
     // delete() {
@@ -161,30 +199,6 @@ export default class Board {
         }
         this.value = final;
         return true;
-    }
-
-    setBackgroundColor(value){
-        this.backgroundColor = value;
-    }
-    changeColorScheme(string){
-        if (string === 'pink') {
-            this.setBackgroundColor(0xA54657);
-            this.borderColor = 0x582630;
-            this.partColor = 0xF7EE7F;
-            this.colorScheme = 'pink';
-        }
-        if (string === 'green') {
-            this.backgroundColor = 0xC1BDB3;
-            this.borderColor = 0x000000;
-            this.partColor = 0x007600;
-            this.colorScheme = 'green';
-        }
-    }
-    drawColorScheme(string) {
-        let tempArray = Array.from(this.cell_matrix);
-        this.changeColorScheme(string);
-        this.createMatrix();
-        // this.cell_matrix.part = Array.from(tempArray.part);
     }
 
     convertToNum(strnum) {
