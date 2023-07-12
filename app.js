@@ -1,5 +1,6 @@
 import Board from "./board.js";
 import Levels from "./levels.js"
+import NodeVoltage from "./NodeVoltage";
 
 const app = new PIXI.Application(
     {
@@ -87,12 +88,13 @@ valueInput.onchange = () => {
 
         const colorButton = document.getElementById('ColorButton');
         colorButton.onclick = () => {
-                console.log('changing the color scheme');
-                if (board.colorScheme === 'green') {
-                        board.changeColorScheme('pink');
-                } else
-                        board.changeColorScheme('green');
-        }
+                new NodeVoltage(this.board.cell_matrix).solve();
+        //         console.log('changing the color scheme');
+        //         if (board.colorScheme === 'green') {
+        //                 board.changeColorScheme('pink');
+        //         } else
+        //                 board.changeColorScheme('green');
+         }
 
         const resetButton = document.getElementById('ResetButton');
         resetButton.onclick = () => {
