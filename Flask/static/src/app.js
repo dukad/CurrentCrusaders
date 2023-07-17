@@ -116,7 +116,6 @@ lvl2Button.onclick = () => {
 const lvl3Button = document.getElementById('level3Button');
 lvl3Button.onclick = () => {
         levels.createLevel3();
-        console.log('dafuq goin on');
 }
 
 const lvl4Button = document.getElementById('level4Button');

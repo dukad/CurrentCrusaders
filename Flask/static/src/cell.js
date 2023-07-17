@@ -273,7 +273,7 @@ export default class Cell {
                 // console.log("hovering " + this.x + " " + this.y);
             }
         }
-        console.log(this.graphic.alpha + " " + this.graphic.temporaryGraphic);
+        // console.log(this.graphic.alpha + " " + this.graphic.temporaryGraphic);
 
     }
 

@@ -32,14 +32,20 @@ export default class NodeVoltage {
             // if nodes were found
             let y = 0;
             let gnd;
+            console.log(nodes.size + " nodes size");
             nodes.forEach(node => { // find the bottom most node in the list to designate as the ground node
                 if (node.y > y) {
                     gnd = node;
                     y = node.y;
+                    console.log(" plz work????");
                 }
+                console.log("jk");
                 node.reference = null;
             })
+            console.log(gnd + " plz work");
             gnd.reference = new Reference(0, gnd);
+            console.log(gnd + " plz workpt2");
+
         }
         // Create a net list to be solved using PySpice
         let list = this.create_net_list(nodes);
@@ -132,8 +138,8 @@ export default class NodeVoltage {
         // alert('Successfully exited while loop')
         //now current_cell is a node if nodes are present
         // if no node was found, there are no nodes, return an empty Set
-        console.log(current_cell.connected_parts.size);
-        if (current_cell.connected_parts.size < 3) {
+        console.log("connected parts size " + current_cell.connected_parts.size);
+        if (current_cell.connected_parts.size < 2) {
             alert('no nodes detected')
             return current_cell
         } else {
@@ -183,6 +189,8 @@ export default class NodeVoltage {
         let list = [];
         referenceNum = 1
         netnum = 1
+        console.log("nodes" + nodes + " " + nodes.toString());
+        console.log( " seen" + seen);
         if (!(nodes instanceof Set)) {
             list = this.netitems_from_wire(nodes, seen)
         } else {
@@ -266,6 +274,7 @@ export default class NodeVoltage {
                 let nextItem = this.direction_recurse(direction, seen, node) // go until finding another node or comp
                 let whileruns = 0
                 while ((nextItem instanceof Component) && (whileruns < 100)) { // dont run infinitely, wires wont be that long
+                    console.log("yoo");
                     whileruns += 1
                     itemList.push(nextItem)
                     nextItem.connected_parts.forEach(connected => {
@@ -320,6 +329,7 @@ export default class NodeVoltage {
          */
         // console.log('direction recursing at', direction.x, direction.y)
         seen.add(direction)
+        console.log("dir" + direction.size + "  " + direction.toString());
         if ((direction instanceof Component) || (direction.size >= 3)) {
             // console.log('im a component or a node!')
             // console.log('returning', direction.x, direction.y)
