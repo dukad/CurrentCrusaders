@@ -22,6 +22,7 @@ export default class NodeVoltage {
         //find a wire on the matrix
         let part = this.find_a_part();
         if (!(part instanceof Cell)) {
+            console.log(part);
             alert('No Wires or Components Found!');
             return null;
         }
@@ -74,12 +75,15 @@ export default class NodeVoltage {
             for (let j=0; j<width; j++) {
                 let cell = this.matrix[i][j]
                 // console.log(cell.x, cell.y, cell.type)
-                if ((cell.part === 'Wire') || (cell.part === 'Component')) {
+                // if ((cell.part === 'Wire') || (cell.part === 'Component')) {
+                if (cell.part !== null) {
                     console.log('found ', cell.x, cell.y)
                     return cell
                 }
             }
         }
+        console.log("cant find anything");
+
         return null
     }
 
