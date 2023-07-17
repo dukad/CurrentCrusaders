@@ -21,7 +21,7 @@ export default class NodeVoltage {
         console.log('solving');
         //find a wire on the matrix
         let part = this.find_a_part();
-        if (!(part instanceof Cell)) {
+        if ((part===null)) {
             console.log(part);
             alert('No Wires or Components Found!');
             return null;
@@ -78,7 +78,8 @@ export default class NodeVoltage {
                 // if ((cell.part === 'Wire') || (cell.part === 'Component')) {
                 if (cell.part !== null) {
                     console.log('found ', cell.x, cell.y)
-                    return cell
+                    console.log( cell.part);
+                    return cell.part;
                 }
             }
         }
@@ -131,6 +132,7 @@ export default class NodeVoltage {
         // alert('Successfully exited while loop')
         //now current_cell is a node if nodes are present
         // if no node was found, there are no nodes, return an empty Set
+        console.log(current_cell.connected_parts.size);
         if (current_cell.connected_parts.size < 3) {
             alert('no nodes detected')
             return current_cell
