@@ -11,6 +11,10 @@ export default function SendToPython(net, node_list, comp_list) {
             console.log('succeeded');
             DisplayValues(response, node_list, comp_list);
             return response;
+        },
+        error: function (response) {
+            console.log("poo poo");
+            return response;
         }
     })
 }
