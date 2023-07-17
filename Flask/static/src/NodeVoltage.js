@@ -42,9 +42,7 @@ export default class NodeVoltage {
                 console.log("jk");
                 node.reference = null;
             })
-            console.log(gnd + " plz work");
-            gnd.reference = new Reference(0, gnd);
-            console.log(gnd + " plz workpt2");
+            // gnd.reference = new Reference(0, gnd);
 
         }
         // Create a net list to be solved using PySpice
@@ -54,6 +52,7 @@ export default class NodeVoltage {
         let string = ''; // string to become the netlist to send to python
         let reference_set = new Set() // add all references to this to be used when displaying values
 
+        console.log(list.length);
         for(let i = 0; i <list.length ; i++) {
             console.log(list[i]);
             this.check_orientation(list[i]);
@@ -70,7 +69,9 @@ export default class NodeVoltage {
             reference_list.push(item)
         })
         console.log("WERE SENDING TO PYTHONNN");
-
+        console.log("string " + string);
+        console.log("reference_list " + reference_list.length);
+        console.log("list " + list.length);
         SendToPython(string, reference_list, list)
     }
 
@@ -105,8 +106,9 @@ export default class NodeVoltage {
             // console.log('running find_all_nodes method')
         let current_cell = part
         let seen = new Set()
-        let value = current_cell.connected_parts.size
+        let value = part.connected_parts.size
         let connection_count = 0
+        console.log(value + " val");
         while (value < 3) { //keep going until a node is found
             // console.log(current_cell.x, current_cell.y, current_cell.type)
             // console.log(current_cell.connected_parts.size)
@@ -143,7 +145,7 @@ export default class NodeVoltage {
             alert('no nodes detected')
             return current_cell
         } else {
-            seen.clear()
+            // seen.clear()
             let x = this.node_search(current_cell, seen)
             console.log(x.size, ' nodes found')
             // x.forEach(node => {
@@ -163,14 +165,16 @@ export default class NodeVoltage {
         //for each surrounding direction
         // console.log('node searching ', node.x, node.y)
         seen_set.add(node)
-        if (node.connected_parts.size >= 3) {
+        console.log(node.connected_parts.size);
+        if (node.connected_parts.size >= 2) {
             nodes_set.add(node)
-            // console.log('found a node at ', node.x, node.y)
-            // console.log('the parts it is connected to are: ')
-            // node.connected_parts.forEach(cn => {
-            //     console.log(cn.x, cn.y, cn.type)
-            // })
+            console.log('found a node at ', node.x, node.y)
+            console.log('the parts it is connected to are: ')
+            node.connected_parts.forEach(cn => {
+                console.log(cn.x, cn.y, cn.type)
+            })
         }
+        console.log(nodes_set.size)
         node.connected_parts.forEach(connected_cell => {
             //if not already seen
             if (!(seen_set.has(connected_cell))) {
@@ -336,9 +340,11 @@ export default class NodeVoltage {
             return direction
         } else {
             let array = []
-            direction.forEach(cd => {
-                array.push(cd)
-            })
+            console.log(direction)
+            // error here because direction is undefined
+            // direction.forEach(cd => {
+            //     array.push(cd)
+            // })
             for (let i=0; i < array.length; i++) {
                 if (!(seen.has(array[i]))) { // if the connected direction hasn't been seen
                     // console.log('i havent yet seen', array[i].x, array[i].y)

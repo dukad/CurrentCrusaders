@@ -3,6 +3,7 @@ import Cell from './cell.js'
 import Component from "./BasicComponent.js";
 import Wire from "./wire.js"
 export default function DisplayValues(sol_string, node_list, comp_list) {
+    console.log("HOLYY SHIT IT WORKS??!")
     console.log(sol_string)
     let split = sol_string.split('\n\n')
     let voltages = split[0].split('\n')
