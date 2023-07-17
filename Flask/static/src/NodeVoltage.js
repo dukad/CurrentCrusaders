@@ -320,13 +320,13 @@ export default class NodeVoltage {
          */
         // console.log('direction recursing at', direction.x, direction.y)
         seen.add(direction)
-        if ((direction instanceof Component) || (direction.connected_parts.size >= 3)) {
+        if ((direction instanceof Component) || (direction.size >= 3)) {
             // console.log('im a component or a node!')
             // console.log('returning', direction.x, direction.y)
             return direction
         } else {
             let array = []
-            direction.connected_parts.forEach(cd => {
+            direction.forEach(cd => {
                 array.push(cd)
             })
             for (let i=0; i < array.length; i++) {
