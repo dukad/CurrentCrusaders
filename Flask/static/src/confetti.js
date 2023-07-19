@@ -12,7 +12,7 @@ export default class Confetti {
         var that = this;
         var xAdd = [];
         var scale = [];
-        for (var i = 0; i < 40; i++) {
+        for (var i = 0; i < 100; i++) {
             var colornum = i % this.color.length
             scale.push(((Math.floor(Math.random() * 4) + 8) / 10));
             var x = Math.floor(Math.random() * this.w) + 10
@@ -33,7 +33,7 @@ export default class Confetti {
         function animate() {
             requestAnimationFrame(animate);
 
-            for (var i = 0; i < 40; i++) {
+            for (var i = 0; i < 100; i++) {
                 var y, x;
                 var colornum = i % that.color.length;
                 that.graphics[i].beginFill(that.color[colornum], 1).drawRect(-5, -5, 10, 10);
@@ -60,13 +60,15 @@ export default class Confetti {
                 that.graphics[i].skew.y += i % 2 === 0 ? that.skew[i % 5] : that.skew[i % 5] * -1;
                 that.graphics[i].rotation += i % 2 === 0 ? (0.01 + ((i % 5) * 0.01)) : (0.01 + ((i % 5) * -0.01));
             }
-            console.log("adding confetti" + that.graphics.length);
         }
-    }
+         console.log("adding confetti" + that.graphics.length);
+
+     }
 
      removeConfetti() {
-        for (let i = 0; i < 40; i++) {
-            // this.graphics[i].clear();
+        console.log("a");
+        for (var i = 0; i < 100; i++) {
+            this.graphics[i].clear();
             this.board.app.stage.removeChild(this.graphics[i]);
         }
         // cancelAnimationFrame()

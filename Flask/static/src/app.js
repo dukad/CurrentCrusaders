@@ -119,6 +119,7 @@ valueInput.onchange = () => {
                 const lvl3Button = document.getElementById('level3Button');
                 lvl3Button.onclick = () => {
                         confetti.confetti();
+                        // window.setTimeout(confetti.removeConfetti, 1000);
                 }
 
                 const lvl4Button = document.getElementById('level4Button');
