@@ -259,7 +259,7 @@ export default class Cell {
         }
         // checking if its not blank space or a wire
         if(this.part && !(this.part.value === undefined)) {
-            console.log(this.part.value);
+            // console.log(this.part.value);
             this.part.text = new PIXI.Text(this.part.value);
             this.part.text.x = this.x * this.dimension;
             this.part.text.y = this.y * this.dimension;
@@ -286,7 +286,7 @@ export default class Cell {
         if(this.part && !(this.part.value === undefined)) {
             this.app.stage.removeChild(this.part.text);
             this.part.text = new PIXI.Text('');
-            console.log('removing text');
+            // console.log('removing text');
         }
     }
 

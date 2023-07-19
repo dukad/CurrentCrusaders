@@ -1,6 +1,7 @@
 import Board from "./board.js";
 import Levels from "./levels.js"
 import NodeVoltage from "./NodeVoltage.js";
+import Confetti from "./confetti.js";
 
 const app = new PIXI.Application(
     {
@@ -38,6 +39,7 @@ const grid_width = Math.floor(window.innerWidth / dimension);
 // create the board
 let board = new Board(grid_height, grid_width, dimension, app, 'green');
 let levels = new Levels(board);
+let confetti = new Confetti(board)
 board.createMatrix();
 window.addEventListener("mousedown", () => {board.changeMode('mousedown')});
 window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
@@ -91,38 +93,40 @@ valueInput.onchange = () => {
         colorButton.onclick = () => {
                 let test = new NodeVoltage(board.cell_matrix)
                 test.solve()        //         console.log('changing the color scheme');
-        //         if (board.colorScheme === 'green') {
-        //                 board.changeColorScheme('pink');
-        //         } else
-        //                 board.changeColorScheme('green');
-         }
-
-        const resetButton = document.getElementById('ResetButton');
-        resetButton.onclick = () => {
-                board.unlockBoard();
-                board.resetBoard()
+                //         if (board.colorScheme === 'green') {
+                //                 board.changeColorScheme('pink');
+                //         } else
+                //                 board.changeColorScheme('green');
+                // }
         }
 
-const lvl1Button = document.getElementById('level1Button');
-lvl1Button.onclick = () => {
-        levels.createLevel1();
-}
+                const resetButton = document.getElementById('ResetButton');
+                resetButton.onclick = () => {
+                        board.unlockBoard();
+                        board.resetBoard()
+                }
 
-const lvl2Button = document.getElementById('level2Button');
-lvl2Button.onclick = () => {
-        levels.createLevel2();
-}
+                const lvl1Button = document.getElementById('level1Button');
+                lvl1Button.onclick = () => {
+                        levels.createLevel1();
+                }
 
-const lvl3Button = document.getElementById('level3Button');
-lvl3Button.onclick = () => {
-        levels.createLevel3();
-}
+                const lvl2Button = document.getElementById('level2Button');
+                lvl2Button.onclick = () => {
+                        levels.createLevel2();
+                }
 
-const lvl4Button = document.getElementById('level4Button');
-lvl4Button.onclick = () => {
-        console.log('lvl4');
-        levels.createLevel4();
-}
+                const lvl3Button = document.getElementById('level3Button');
+                lvl3Button.onclick = () => {
+                        confetti.confetti();
+                }
+
+                const lvl4Button = document.getElementById('level4Button');
+                lvl4Button.onclick = () => {
+                        console.log('lvl4');
+                        confetti.removeConfetti();
+                }
+
 //delete cells at end
 
 

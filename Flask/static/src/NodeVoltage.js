@@ -37,12 +37,10 @@ export default class NodeVoltage {
                 if (node.y > y) {
                     gnd = node;
                     y = node.y;
-                    console.log(" plz work????");
                 }
-                console.log("jk");
                 node.reference = null;
             })
-            // gnd.reference = new Reference(0, gnd);
+            gnd.reference = new Reference(0, gnd);
 
         }
         // Create a net list to be solved using PySpice
@@ -62,16 +60,18 @@ export default class NodeVoltage {
             reference_set.add(list[i].node2);
         }
         console.log('Netlist is')
-        console.log(string)
+        console.log(string + " ");
 
         let reference_list = []
         reference_set.forEach(item => {
             reference_list.push(item)
         })
+        let string2 = "R1 0 N1 15 \nR2 N1 N2 15 \nV3 0 N2 15";
         console.log("WERE SENDING TO PYTHONNN");
         console.log("string " + string);
         console.log("reference_list " + reference_list.length);
         console.log("list " + list.length);
+
         SendToPython(string, reference_list, list)
     }
 
@@ -104,7 +104,12 @@ export default class NodeVoltage {
             //if the number of directions possible is 1 or 2, go until finding a node
             // if the number is 3 or >3, you're already there
             // console.log('running find_all_nodes method')
+
+
+
+            //PART IS AN ARRAY OF STRINGS??
         let current_cell = part
+        // alert(typeof(typeof(part)))
         let seen = new Set()
         let value = part.connected_parts.size
         let connection_count = 0
@@ -114,12 +119,12 @@ export default class NodeVoltage {
             // console.log(current_cell.connected_parts.size)
             seen.add(current_cell) //mark the current cell as seen as to not come back to it
             connection_count = 0
-            if (current_cell.connected_parts.size >= 2) {
+            if (current_cell.connected_parts.size >= 3) {
                 // console.log('running if statement')
                 current_cell.connected_parts.forEach(direction_cell => { // check in all directions
                     connection_count += 1
                     if (!seen.has(direction_cell)) {
-                        if (direction_cell.connected_parts.size >= 2) { // if the connected cell is a node
+                        if (direction_cell.connected_parts.size >= 3) { // if the connected cell is a node
                             current_cell = direction_cell // become the node
                             connection_count = 0
                             value = current_cell.connected_parts.size
@@ -141,7 +146,7 @@ export default class NodeVoltage {
         //now current_cell is a node if nodes are present
         // if no node was found, there are no nodes, return an empty Set
         console.log("connected parts size " + current_cell.connected_parts.size);
-        if (current_cell.connected_parts.size < 2) {
+        if (current_cell.connected_parts.size < 3) {
             alert('no nodes detected')
             return current_cell
         } else {
@@ -166,7 +171,7 @@ export default class NodeVoltage {
         // console.log('node searching ', node.x, node.y)
         seen_set.add(node)
         console.log(node.connected_parts.size);
-        if (node.connected_parts.size >= 2) {
+        if (node.connected_parts.size >= 3) {
             nodes_set.add(node)
             console.log('found a node at ', node.x, node.y)
             console.log('the parts it is connected to are: ')

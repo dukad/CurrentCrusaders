@@ -29,8 +29,6 @@ export default class Board {
         this.cellMatrix1 = [this.grid_height][this.grid_width];
         this.map = new Map();
         this.map.set(1, this.cellMatrix1);
-
-
     }
     createMatrix() {
         // create every row in the matrix
@@ -111,7 +109,6 @@ export default class Board {
         }
         this.#refreshhover();
     }
-
     #refreshhover() {
         console.log('running refreshhover')
         let checkPart;
