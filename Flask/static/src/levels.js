@@ -40,7 +40,7 @@ export default class Levels {
         this.makeVerticalWire(3, 16-7, 3, 0x007600);
         this.makeVerticalWire(3,9,9, 0x007600);
         this.makeVerticalWire(2, 16-7, 15, 0x007600);
-        this.board.cell_matrix[5][3].makeResistor(10,1);
+        this.board.cell_matrix[5][3].makeResistor(10,1); // orientation of 1 is vertical
         this.board.cell_matrix[5][9].makeResistor(10,1);
         this.board.cell_matrix[5][15].makeVoltageSource(5,1);
     }
