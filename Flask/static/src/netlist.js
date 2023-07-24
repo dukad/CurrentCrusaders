@@ -14,6 +14,7 @@ export default class netlist {
         this.resistorCounter = 1;
         this.voltageCounter = 1;
         this.currentCounter = 1;
+        this.seen = new Set();
     }
     solve() {
   //      let startxy = findStartPosition();
@@ -30,15 +31,15 @@ export default class netlist {
         //loop
         // let x = cell.x;
         // let y = cell.y;
-        console.log("traverseCircuit X:");
-        console.log(x); //what going on here
-        if (!this.board.cell_matrix[x][y].seen) {
+        console.log("traverseCircuit X and y:");
+        console.log(x + " " + y); //what going on here
+        if (!this.seen.has(this.board.cell_matrix[x][y])) {
             console.log("traverse circuit" + "")
             let array = this.checkDirections(x,y);
             let newCoordinate = this.traverseArray(array, x, y);
             console.log("new cord " + newCoordinate.x);
             console.log('new cord y ' + newCoordinate.y);
-            this.board.cell_matrix[x][y].seen = true;
+            this.seen.add(this.board.cell_matrix[x][y]);
             this.board.cell_matrix[x][y].nodeNumber = nodenum;
             // this.board.cell_matrix[x][y].objectNum =
             nodenum++;
@@ -74,13 +75,13 @@ export default class netlist {
         for (let i = 0; i < this.board.grid_height; i++) {
             for (let j = 0; j < this.board.grid_width; j++) {
                 if (this.board.cell_matrix[i][j].isPowerSource()) {
-                    x = j;
-                    y = i;
-                    if (this.board.cell_matrix[i][j].part.orientation) {
-                        this.startingOrientation = 1;
-                    } else {
-                        this.startingOrientation = 0;
-                    }
+                    x = i;
+                    y = j;
+                    // if (this.board.cell_matrix[i][j].part.orientation) {
+                    //     this.startingOrientation = 1;
+                    // } else {
+                    //     this.startingOrientation = 0;
+                    // }
                 }
             }
         }
