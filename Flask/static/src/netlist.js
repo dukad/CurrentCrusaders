@@ -19,7 +19,7 @@ export default class netlist {
     // this is where it all begins
     solve() {
 
-  //      let startxy = findStartPosition();
+        //      let startxy = findStartPosition();
         console.log("calling traverse circuit")
         let startPos = this.findStartPosition();
         console.log("Starting position " + startPos.x + " " + startPos.y);
@@ -30,7 +30,7 @@ export default class netlist {
         // createNetList();
 //        sendToPython();
 
-}
+    }
     // recursive method call
     traverseCircuit(x, y, direction, nodenum) {
         //loop
@@ -49,32 +49,42 @@ export default class netlist {
             this.board.cell_matrix[x][y].nodeNumber = nodenum;
             // this.board.cell_matrix[x][y].objectNum =
             // nodenum++;
+            // alert(array.length);
             if (array.length === 2) {
                 console.log('only one direction found :)');
                 console.log("WE ARE RECURSING");
                 console.log(array + "arayaseijffaanadanjadfafdjklslsidgagoiaj")
+                //here
                 this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], nodenum);
+                // removes the first element in the array
+                array.shift()
+                newCoordinate = this.findStartCoordinates(array, x, y);
                 nodenum++;
                 //somewhere here we need to pass the node number into the basic component object
                 this.traverseCircuit(newCoordinate.x, (newCoordinate.y), array[0], nodenum);
             }else if (array.length===3){
                 console.log("WE ARE RECURSING direction 2 ");
-                this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[0], nodenum);
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], nodenum);
+                array.shift()
+                newCoordinate = this.findStartCoordinates(array, x, y);
                 nodenum++;
-                this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[1], nodenum);
+                //here as well I think?
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], nodenum);
+                array.shift()
+                newCoordinate = this.findStartCoordinates(array, x, y);
                 nodenum++;
-                this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[2], nodenum);
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], nodenum);
 
             }
-        //make wires seen
-        //give parts a wire
-        //recursive call with new starting cell
-        // if junction call multiple times for each direction
-        //base call
-                    } else {
+            //make wires seen
+            //give parts a wire
+            //recursive call with new starting cell
+            // if junction call multiple times for each direction
+            //base call
+        } else {
             console.log("ur mother")
         }
-                    console.log("the end??");
+        console.log("the end??");
     }
 
 
@@ -98,20 +108,21 @@ export default class netlist {
         console.log("find starting position x:" + x + " y: " + y);
         return {x, y};
     }
-    traverseArray(array, x, y){
+    //this is BADDAADDAD
+    findStartCoordinates(array, x, y){
         console.log ('traversing array');
-            if(array[0] === 1) {
-                y--; // up
-            } else if (array[0] === 2){
-                x++; // right
-            } else if (array[0] === 3) {
-                y++; // down
-            } else if (array[0] === 4){
-                x--; //left
-            }
-            return {x, y};
+        if(array[0] === 1) {
+            y--; // up
+        } else if (array[0] === 2){
+            x++; // right
+        } else if (array[0] === 3) {
+            y++; // down
+        } else if (array[0] === 4){
+            x--; //left
+        }
+        return {x, y};
     }
-        //WHAT THE FRICK IS GOING ON HERE - the directions are completely fucked lol but i think we made it work through trial and error
+    //WHAT THE FRICK IS GOING ON HERE - the directions are completely fucked lol but i think we made it work through trial and error
     checkDirections(x, y){
         console.log('checking cell direction');
         //up is 1, right is 2, down is 3, left is 4
@@ -119,23 +130,23 @@ export default class netlist {
         console.log("x: " + x + " y: " + y);
         // console.log(this.board.cell_matrix[x][y-1].part)
 
-        //THIS IS 110% wrong
-        if (this.board.cell_matrix[x+1][y].partName!==''){
+        if (this.board.cell_matrix[x][y-1].partName!==''){
             array.push(1);
             console.log('going up');
         }
-        if (this.board.cell_matrix[x][y+1].partName!==''){
+        if (this.board.cell_matrix[x+1][y].partName!==''){
             array.push(2);
             console.log('going right');
         }
         if (this.board.cell_matrix[x-1][y].partName!==''){
-            array.push(3);
-            console.log('going down');
-        }
-        if (this.board.cell_matrix[x][y-1].partName!==''){
             array.push(4);
             console.log('going left');
         }
+        if (this.board.cell_matrix[x][y+1].partName!==''){
+            array.push(3);
+            console.log('going down');
+        }
+
         console.log(array);
         return array;
     }
