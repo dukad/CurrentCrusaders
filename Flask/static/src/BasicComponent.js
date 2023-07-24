@@ -7,6 +7,7 @@ export default class BasicComponent extends Part {
         this.connected_parts = new Set();
         this.value = value;
         this.name = 'defaultname';
+        this.node = null;
     }
 
     connect(part) {

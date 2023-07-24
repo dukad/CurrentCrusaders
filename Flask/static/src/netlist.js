@@ -42,7 +42,7 @@ export default class netlist {
         if (!this.seen.has(this.board.cell_matrix[x][y])) {
             console.log("traverse circuit" + "")
             let array = this.checkDirections(x,y);
-            let newCoordinate = this.traverseArray(array, x, y);
+            let newCoordinate = this.findStartCoordinates(array, x, y);
             console.log("new cord " + newCoordinate.x);
             console.log('new cord y ' + newCoordinate.y);
             this.seen.add(this.board.cell_matrix[x][y]);
@@ -55,10 +55,9 @@ export default class netlist {
                 console.log(array + "arayaseijffaanadanjadfafdjklslsidgagoiaj")
                 this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], nodenum);
                 nodenum++;
-                console.log(array[1])
-                this.traverseCircuit(newCoordinate.x, (newCoordinate.y), array[1], nodenum);
-            }
-            if (array.length===3){
+                //somewhere here we need to pass the node number into the basic component object
+                this.traverseCircuit(newCoordinate.x, (newCoordinate.y), array[0], nodenum);
+            }else if (array.length===3){
                 console.log("WE ARE RECURSING direction 2 ");
                 this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[0], nodenum);
                 nodenum++;
@@ -139,6 +138,9 @@ export default class netlist {
         }
         console.log(array);
         return array;
+    }
+    incrementObject(x, y){
+        //object counter for the name of the object in the netlist
     }
 
 
