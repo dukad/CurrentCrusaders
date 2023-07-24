@@ -22,6 +22,9 @@ export default class netlist {
         let startPos = this.findStartPosition();
         console.log("Starting position " + startPos.x + " " + startPos.y);
         this.traverseCircuit(startPos.x, startPos.y, this.startingOrientation, this.nodeCounter);
+        this.seen.forEach(function(value) {
+            console.log("mmm " +value.x + " " + value.y);
+        });
         // createNetList();
 //        sendToPython();
 
