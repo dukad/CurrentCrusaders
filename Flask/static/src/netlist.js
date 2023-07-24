@@ -16,26 +16,29 @@ export default class netlist {
         this.currentCounter = 1;
         this.seen = new Set();
     }
+    // this is where it all begins
     solve() {
+
   //      let startxy = findStartPosition();
         console.log("calling traverse circuit")
         let startPos = this.findStartPosition();
         console.log("Starting position " + startPos.x + " " + startPos.y);
         this.traverseCircuit(startPos.x, startPos.y, this.startingOrientation, this.nodeCounter);
         this.seen.forEach(function(value) {
-            console.log("mmm " +value.x + " " + value.y);
+            console.log("mmm " +value.x + " " + value.y)
         });
         // createNetList();
 //        sendToPython();
 
 }
-
+    // recursive method call
     traverseCircuit(x, y, direction, nodenum) {
         //loop
         // let x = cell.x;
         // let y = cell.y;
         console.log("traverseCircuit X and y:");
         console.log(x + " " + y); //what going on here
+
         if (!this.seen.has(this.board.cell_matrix[x][y])) {
             console.log("traverse circuit" + "")
             let array = this.checkDirections(x,y);
@@ -45,19 +48,24 @@ export default class netlist {
             this.seen.add(this.board.cell_matrix[x][y]);
             this.board.cell_matrix[x][y].nodeNumber = nodenum;
             // this.board.cell_matrix[x][y].objectNum =
-            nodenum++;
+            // nodenum++;
             if (array.length === 2) {
                 console.log('only one direction found :)');
                 console.log("WE ARE RECURSING");
+                console.log(array + "arayaseijffaanadanjadfafdjklslsidgagoiaj")
                 this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], nodenum);
+                nodenum++;
+                console.log(array[1])
+                this.traverseCircuit(newCoordinate.x, (newCoordinate.y), array[1], nodenum);
             }
             if (array.length===3){
                 console.log("WE ARE RECURSING direction 2 ");
-
-                console.log("two directions found :(");
-                //this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[0], nodenum);
+                this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[0], nodenum);
                 nodenum++;
-                //this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[0], nodenum);
+                this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[1], nodenum);
+                nodenum++;
+                this.traverseCircuit(this.board.cell_matrix[newCoordinate.x][newCoordinate.y], array[2], nodenum);
+
             }
         //make wires seen
         //give parts a wire
@@ -94,17 +102,17 @@ export default class netlist {
     traverseArray(array, x, y){
         console.log ('traversing array');
             if(array[0] === 1) {
-                y--;
+                y--; // up
             } else if (array[0] === 2){
-                x++;
+                x++; // right
             } else if (array[0] === 3) {
-                y++;
+                y++; // down
             } else if (array[0] === 4){
-                x--;
+                x--; //left
             }
             return {x, y};
     }
-
+        //WHAT THE FRICK IS GOING ON HERE - the directions are completely fucked lol but i think we made it work through trial and error
     checkDirections(x, y){
         console.log('checking cell direction');
         //up is 1, right is 2, down is 3, left is 4
