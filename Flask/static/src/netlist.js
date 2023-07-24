@@ -27,11 +27,19 @@ export default class netlist {
 
     traverseCircuit(cell, ori, nodenum) {
         console.log("hai");
+        //loop
+        //make wires seen
+        //give parts a wire
+        //recursive call with new starting cell
+        // if junction call multiple times for each direction
+        //base call
     }
+
 
     findStartPosition() {
         for (let i = 0; i < this.board.grid_height; i++) {
             for (let j = 0; j < this.board.grid_width; j++) {
+                if (this.board().cell_matrix(i, j).isPowerSource()) {
                 this.x = j;
                 this.y = i;
                 if (this.board.cell_matrix[i][j].part.orientation) {
@@ -39,8 +47,12 @@ export default class netlist {
                 } else {
                     this.startingOrientation = 0;
                 }
+            } else {
+                //kys
+            }
             }
         }
     }
+
 
 }

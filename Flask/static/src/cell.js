@@ -431,4 +431,9 @@ export default class Cell {
 
         this.temporaryGraphic.alpha = 0.5;
     }
+
+    isPowerSource() {
+        // check this
+        return (this.part === VoltageSource) || (this.part === CurrentSource);
+    }
 }
