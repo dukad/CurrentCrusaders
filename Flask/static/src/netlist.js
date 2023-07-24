@@ -65,7 +65,7 @@ export default class netlist {
         // if junction call multiple times for each direction
         //base call
                     } else {
-            console.log("ur moter")
+            console.log("ur mother")
         }
                     console.log("the end??");
     }
@@ -111,19 +111,21 @@ export default class netlist {
         let array = [];
         console.log("x: " + x + " y: " + y);
         // console.log(this.board.cell_matrix[x][y-1].part)
-        if (this.board.cell_matrix[x][y-1].part!=null){
+
+        //THIS IS 110% wrong
+        if (this.board.cell_matrix[x+1][y].partName!==''){
             array.push(1);
             console.log('going up');
         }
-        if (this.board.cell_matrix[x+1][y].part!=null){
+        if (this.board.cell_matrix[x][y+1].partName!==''){
             array.push(2);
             console.log('going right');
         }
-        if (this.board.cell_matrix[x][y+1].part!=null){
+        if (this.board.cell_matrix[x-1][y].partName!==''){
             array.push(3);
             console.log('going down');
         }
-        if (this.board.cell_matrix[x-1][y].part!=null){
+        if (this.board.cell_matrix[x][y-1].partName!==''){
             array.push(4);
             console.log('going left');
         }
