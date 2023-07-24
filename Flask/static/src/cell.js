@@ -21,6 +21,9 @@ export default class Cell {
         this.hovering = 0;
         this.selected = false;
         this.isLocked = false;
+        this.seen = false;
+        this.nodeNumber = null;
+        this.partName = '';
     }
 
     draw(backgroundColor, borderColor) {
@@ -112,6 +115,7 @@ export default class Cell {
                 this.part.delete();
             }
             this.part = new Wire(this.x, this.y, this.dimension, this.app, this.partColor)
+            this.partName = 'Wire';
             this.autoConnectWire();
             this.part.draw();
         }
@@ -124,6 +128,7 @@ export default class Cell {
             this.part.delete();
         }
         this.part = new Resistor(this.x, this.y, this.dimension, this.app, this.partColor, or, val);
+        this.partName = "Resistor"
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
@@ -133,6 +138,7 @@ export default class Cell {
             this.part.delete();
         }
         this.part = new VoltageSource(this.x, this.y, this.dimension, this.app, this.partColor, or, num);
+        this.partName = "Voltage";
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
@@ -142,6 +148,7 @@ export default class Cell {
             this.part.delete();
         }
         this.part = new CurrentSource(this.x, this.y, this.dimension, this.app, this.partColor, or, num);
+        this.partName = "Current";
         this.#autoConnectBasicComponent(or);
         this.part.draw();
     }
@@ -433,7 +440,6 @@ export default class Cell {
     }
 
     isPowerSource() {
-        // check this
-        return (this.part === VoltageSource) || (this.part === CurrentSource);
+        return (this.partName === "Voltage") || (this.partName === "Current");
     }
 }

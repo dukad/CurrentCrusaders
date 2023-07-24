@@ -1,5 +1,6 @@
 import Board from "./board.js";
 import Levels from "./levels.js"
+import netlist from "./netlist.js";
 
 const app = new PIXI.Application(
     {
@@ -37,6 +38,7 @@ const grid_width = Math.floor(window.innerWidth / dimension);
 // create the board
 let board = new Board(grid_height, grid_width, dimension, app, 'green');
 let levels = new Levels(board);
+let netlist1 = new netlist(board)
 board.createMatrix();
 window.addEventListener("mousedown", () => {board.changeMode('mousedown')});
 window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
@@ -103,6 +105,7 @@ valueInput.onchange = () => {
 const checkButton = document.getElementById('CheckButton');
 checkButton.onclick = () => {
         //here would be the solver code call lol
+        netlist1.solve()
 }
 const lvl1Button = document.getElementById('level1Button');
 lvl1Button.onclick = () => {
@@ -117,7 +120,6 @@ lvl2Button.onclick = () => {
 const lvl3Button = document.getElementById('level3Button');
 lvl3Button.onclick = () => {
         levels.createLevel3();
-        console.log('dafuq goin on');
 }
 
 const lvl4Button = document.getElementById('level4Button');

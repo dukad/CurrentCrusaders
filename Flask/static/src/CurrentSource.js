@@ -45,4 +45,5 @@ export default class CurrentSource extends BasicComponent {
         this.graphic.rotation = 3.1415/2 * this.orientation
         // this.app.stage.addChild(this.graphic);
     }
+
 }

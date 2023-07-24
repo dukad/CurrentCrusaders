@@ -43,4 +43,5 @@ export default class BasicComponent extends Part {
         this.orientation = direction;
         this.draw();
     }
+
 }
