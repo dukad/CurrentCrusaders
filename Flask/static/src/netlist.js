@@ -47,17 +47,30 @@ export default class netlist {
         // let y = cell.y;
         // console.log("traverseCircuit X and y:");
         // console.log(x + " " + y); //what going on here
-
-        if (!this.seen.has(this.board.cell_matrix[x][y])) {
+        if((this.junctionCoordsx === x && this.junctionCoordsy === y)) {
+            console.log("your dad")
+        }
+        if ((!this.seen.has(this.board.cell_matrix[x][y])) || (this.junctionCoordsx === x && this.junctionCoordsy === y)) {
             console.log("traverse circuit" + "")
             let array = this.checkDirections(x,y);
             let newCoordinate = this.findStartCoordinates(array, x, y);
+            if(this.magicNumber >= 1 && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== null && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== 'Wire') {
+               console.log(array.length + " array length");
+                console.log("magic numberrrr were teleporting back")
+                this.lastCoordsx = x;
+                this.lastCoordsy = y;
+                newCoordinate.x = this.junctionCoordsx // but go 1 ;
+                newCoordinate.x = this.junctionCoordsy;
+                x = this.junctionCoordsx;
+                y = this.junctionCoordsy;
+                this.magicNumber--;
+            }
             // console.log("new cord " + newCoordinate.x);
             // console.log('new cord y ' + newCoordinate.y);
             this.seen.add(this.board.cell_matrix[x][y]);
             if (this.board.cell_matrix[x][y].partName==='Wire') {
-                console.log('making this wire node '+ this.nodeCounter + "x: " + y + "y: " + x); //wtf lol why is this flipped??
-                this.board.cell_matrix[x][y].part.nodeNum = this.nodeCounter;
+                console.log('making this wire node '+ this.nodeCounter + "x: " + y + " y: " + x); //wtf lol why is this flipped??
+                this.board.cell_matrix[x][y].part.nodeNum = this.nodeCounter; // please dont break with magicNumber
             }
             // checking if its a resistor, voltage or current source
 
@@ -70,17 +83,18 @@ export default class netlist {
                 // this.nodeCounter--;
                 console.log('your mom');
             }
+            if (this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== null && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== 'Wire'){
+                this.nodeCounter++;
+                console.log("adding one to node counter now its " + this.nodeCounter);
+            }
             if (array.length === 2) {
-                // console.log('only one direction found :)');
-                // console.log("WE ARE RECURSING");
-                // console.log(array + "arayaseijffaanadanjadfafdjklslsidgagoiaj")
                 //here
-                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], this.nodeCounter);
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y);
                 // removes the first element in the array
                 array.shift()
                 newCoordinate = this.findStartCoordinates(array, x, y);
                 //somewhere here we need to pass the node number into the basic component object
-                this.traverseCircuit(newCoordinate.x, (newCoordinate.y), array[0], this.nodeCounter);
+                this.traverseCircuit(newCoordinate.x, (newCoordinate.y));
             }else if (array.length===3){
                 this.junctionCoordsx = x;
                 this.junctionCoordsy = y;
@@ -93,6 +107,16 @@ export default class netlist {
                 }
                 this.traverseCircuit(newCoordinate.x, newCoordinate.y)
 
+            } else if (array.length===4) {
+                this.junctionCoordsx = x;
+                this.junctionCoordsy = y;
+                this.magicNumber = 2;
+                for(let i = 0; i < 2; i++) {//does this loop 3 times????
+                    this.traverseCircuit(newCoordinate.x, newCoordinate.y);
+                    array.shift();
+                    newCoordinate = this.findStartCoordinates(array, x, y);
+                }
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y);
             }
             //make wires seen
             //give parts a wire
@@ -127,7 +151,6 @@ export default class netlist {
         console.log("find starting position x:" + x + " y: " + y);
         return {x, y};
     }
-    //this is BADDAADDAD
     findStartCoordinates(array, x, y){
         // console.log ('traversing array');
         if(array[0] === 1) {
