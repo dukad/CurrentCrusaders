@@ -11,11 +11,19 @@ export default class netlist {
         this.netlist = '';
         this.startingOrientation = 0;
         this.board = board;
-        this.nodeCounter = 0;
+        this.nodeCounter = 1;
         this.resistorCounter = 1;
         this.voltageCounter = 1;
         this.currentCounter = 1;
         this.seen = new Set();
+        this.junctionCoordsx = null;
+        this.junctionCoordsy = null;
+        this.lastCoordsx = null; //this is the last coord before we teleport back to the junction, will be returned to
+        this.lastCoordsy = null;
+
+
+        //magic number lets it teleport back to junction, definitely a better way to do this but im too
+        this.magicNumber = null;
     }
     // this is where it all begins
     solve() {
@@ -24,7 +32,7 @@ export default class netlist {
         console.log("calling traverse circuit")
         let startPos = this.findStartPosition();
         console.log("Starting position " + startPos.x + " " + startPos.y);
-        this.traverseCircuit(startPos.x, startPos.y, this.startingOrientation, this.nodeCounter);
+        this.traverseCircuit(startPos.x, startPos.y);
         this.seen.forEach(function(value) {
             console.log("mmm " +value.x + " " + value.y)
         });
@@ -33,7 +41,7 @@ export default class netlist {
 
     }
     // recursive method call
-    traverseCircuit(x, y, direction) {
+    traverseCircuit(x, y) {
         //loop
         // let x = cell.x;
         // let y = cell.y;
@@ -51,11 +59,16 @@ export default class netlist {
                 console.log('making this wire node '+ this.nodeCounter + "x: " + y + "y: " + x); //wtf lol why is this flipped??
                 this.board.cell_matrix[x][y].part.nodeNum = this.nodeCounter;
             }
-            // this.board.cell_matrix[x][y].objectNum =
-            // alert(array.length);
-            if (this.board.cell_matrix[x][y].partName !== null && this.board.cell_matrix[x][y].partName !== 'Wire'){
-                this.nodeCounter++;
-                console.log("adding one to node counter now its akjgakjfalkjfbajksdfks" + this.nodeCounter);
+            // checking if its a resistor, voltage or current source
+
+            if(this.lastCoordsx !== null){
+                let tempx = this.lastCoordsx;
+                this.lastCoordsx = null
+                this.traverseCircuit(tempx, this.lastCoordsy);
+            }
+            if (!this.seen.has(this.board.cell_matrix[newCoordinate.x][newCoordinate.y])&&this.board.cell_matrix[newCoordinate.x][newCoordinate.y].part!==null && this.board.cell_matrix[x][y].partName !== 'Wire') {
+                // this.nodeCounter--;
+                console.log('your mom');
             }
             if (array.length === 2) {
                 // console.log('only one direction found :)');
@@ -69,15 +82,16 @@ export default class netlist {
                 //somewhere here we need to pass the node number into the basic component object
                 this.traverseCircuit(newCoordinate.x, (newCoordinate.y), array[0], this.nodeCounter);
             }else if (array.length===3){
+                this.junctionCoordsx = x;
+                this.junctionCoordsy = y;
+                this.magicNumber = 1
                 // console.log("WE ARE RECURSING direction 2 ");
-                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], this.nodeCounter);
-                array.shift()
+                for(let i = 0; i < 1; i++) {//does this loop 2 times????
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y);
+                array.shift();
                 newCoordinate = this.findStartCoordinates(array, x, y);
-                //here as well I think?
-                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], this.nodeCounter);
-                array.shift()
-                newCoordinate = this.findStartCoordinates(array, x, y);
-                this.traverseCircuit(newCoordinate.x, newCoordinate.y, array[0], this.nodeCounter);
+                }
+                this.traverseCircuit(newCoordinate.x, newCoordinate.y)
 
             }
             //make wires seen
