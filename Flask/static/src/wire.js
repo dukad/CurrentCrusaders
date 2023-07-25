@@ -6,6 +6,7 @@ export default class Wire extends Part {
         this.color = color;
         this.connected_parts = new Set();
         this.name = 'Wire';
+        this.nodeNum = null;
     }
 
     getPartName(){

@@ -442,4 +442,18 @@ export default class Cell {
     isPowerSource() {
         return (this.partName === "Voltage") || (this.partName === "Current");
     }
+
+    getPyspicePart() {
+        switch (this.partName) {
+            case 'Resistor':
+                return "R";
+            case 'Voltage':
+                return "V";
+            case "Current":
+                return "I";
+            case "Wire":
+                alert("bro this is a wire not a component");
+
+        }
+    }
 }
