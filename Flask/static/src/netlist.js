@@ -50,10 +50,10 @@ export default class netlist {
         // let y = cell.y;
         // console.log("traverseCircuit X and y:");
         // console.log(x + " " + y); //what going on here
-        if((this.junctionCoordsx === x && this.junctionCoordsy === y)) {
-            console.log("your dad")
-        }
-        if ((!this.seen.has(this.board.cell_matrix[x][y])) || (this.junctionCoordsx === x && this.junctionCoordsy === y)) {
+        // if((this.junctionCoordsx === x && this.junctionCoordsy === y)) {
+        //     console.log("your dad")
+        // }
+        if (!this.seen.has(this.board.cell_matrix[x][y])) {
             console.log("traverse circuit" + "")
             let array = this.checkDirections(x,y);
             let newCoordinate = this.findStartCoordinates(array, x, y);
@@ -72,6 +72,7 @@ export default class netlist {
             // console.log('new cord y ' + newCoordinate.y);
             this.seen.add(this.board.cell_matrix[x][y]);
             if (this.board.cell_matrix[x][y].partName==='Wire') {
+
                 console.log('making this wire node '+ this.nodeCounter + "x: " + y + " y: " + x); //wtf lol why is this flipped??
                 this.board.cell_matrix[x][y].part.nodeNum = this.nodeCounter; // please dont break with magicNumber
                 console.log('now the wire node is' + this.board.cell_matrix[x][y].part.nodeNum);
@@ -99,28 +100,18 @@ export default class netlist {
                 newCoordinate = this.findStartCoordinates(array, x, y);
                 //somewhere here we need to pass the node number into the basic component object
                 this.traverseCircuit(newCoordinate.x, (newCoordinate.y));
-            }else if (array.length===3){
-                this.junctionCoordsx = x;
-                this.junctionCoordsy = y;
-                this.magicNumber = 1
+            }else if (array.length>=3){
+                // this.junctionCoordsx = x;
+                // this.junctionCoordsy = y;
+                // this.magicNumber = 1 + (array.length - 2)
                 // console.log("WE ARE RECURSING direction 2 ");
-                for(let i = 0; i < 1; i++) {//does this loop 2 times????
+                for(let i = 0; i < (array.length - 2); i++) {//does this loop 2 times????
                 this.traverseCircuit(newCoordinate.x, newCoordinate.y);
                 array.shift();
                 newCoordinate = this.findStartCoordinates(array, x, y);
                 }
                 this.traverseCircuit(newCoordinate.x, newCoordinate.y)
 
-            } else if (array.length===4) {
-                this.junctionCoordsx = x;
-                this.junctionCoordsy = y;
-                this.magicNumber = 2;
-                for(let i = 0; i < 2; i++) {//does this loop 3 times????
-                    this.traverseCircuit(newCoordinate.x, newCoordinate.y);
-                    array.shift();
-                    newCoordinate = this.findStartCoordinates(array, x, y);
-                }
-                this.traverseCircuit(newCoordinate.x, newCoordinate.y);
             }
             //make wires seen
             //give parts a wire
