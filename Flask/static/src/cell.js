@@ -2,6 +2,7 @@ import Wire from './wire.js';
 import Resistor from "./Resistor.js";
 import CurrentSource from "./CurrentSource.js";
 import VoltageSource from "./VoltageSource.js";
+import netlist from "./netlist.js";
 
 export default class Cell {
     constructor(x_coordinate, y_coordinate, dimension, app, matrix, partColor, board) {
@@ -443,17 +444,5 @@ export default class Cell {
         return (this.partName === "Voltage") || (this.partName === "Current");
     }
 
-    getPyspicePart() {
-        switch (this.partName) {
-            case 'Resistor':
-                return "R";
-            case 'Voltage':
-                return "V";
-            case "Current":
-                return "I";
-            case "Wire":
-                alert("bro this is a wire not a component");
 
-        }
-    }
 }

@@ -11,7 +11,7 @@ export default class netlist {
         this.netlist = '';
         this.startingOrientation = 0;
         this.board = board;
-        this.nodeCounter = 1;
+        this.nodeCounter = 0;
         this.resistorCounter = 1;
         this.voltageCounter = 1;
         this.currentCounter = 1;
@@ -20,10 +20,11 @@ export default class netlist {
         this.junctionCoordsy = null;
         this.lastCoordsx = null; //this is the last coord before we teleport back to the junction, will be returned to
         this.lastCoordsy = null;
-
+        this.componentSet = new Set();
 
         //magic number lets it teleport back to junction, definitely a better way to do this but im too
         this.magicNumber = null;
+
     }
     // this is where it all begins
     solve() {
@@ -33,12 +34,14 @@ export default class netlist {
         let startPos = this.findStartPosition();
         console.log("Starting position " + startPos.x + " " + startPos.y);
         this.traverseCircuit(startPos.x, startPos.y);
-        this.seen.forEach(function(value) {
-            console.log("mmm " +value.x + " " + value.y)
+        this.seen.forEach(function(element) {
+            console.log("mmm " +element.x + " " + element.y)
         });
+        this.labelComponentNodes();
         // createNetList();
 //        sendToPython();
-
+        console.log(this.componentSet);
+        this.makeNetlist();
     }
     // recursive method call
     traverseCircuit(x, y) {
@@ -71,6 +74,7 @@ export default class netlist {
             if (this.board.cell_matrix[x][y].partName==='Wire') {
                 console.log('making this wire node '+ this.nodeCounter + "x: " + y + " y: " + x); //wtf lol why is this flipped??
                 this.board.cell_matrix[x][y].part.nodeNum = this.nodeCounter; // please dont break with magicNumber
+                console.log('now the wire node is' + this.board.cell_matrix[x][y].part.nodeNum);
             }
             // checking if its a resistor, voltage or current source
 
@@ -83,7 +87,7 @@ export default class netlist {
                 // this.nodeCounter--;
                 console.log('your mom');
             }
-            if (this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== null && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== 'Wire'){
+            if (this.board.cell_matrix[x][y].partName !== null && this.board.cell_matrix[x][y].partName !== 'Wire'){
                 this.nodeCounter++;
                 console.log("adding one to node counter now its " + this.nodeCounter);
             }
@@ -194,6 +198,60 @@ export default class netlist {
     incrementObject(x, y){
         //object counter for the name of the object in the netlist
     }
+    labelComponentNodes(){
+        for (let i = 0; i < this.board.grid_height; i++) {
+            for (let j = 0; j < this.board.grid_width; j++) {
+                let cell = this.board.cell_matrix[i][j]
+                if ((cell.partName!=='Wire') && (cell.partName !== '')) {
+                    console.log((cell.part.orientation));
+                    if (parseInt(cell.part.orientation)=== 0) { // vertical i think
+                        cell.part.node1 = this.board.cell_matrix[i][j-1].part.nodeNum;
+                        cell.part.node2 = this.board.cell_matrix[i][j+1].part.nodeNum;
+                        console.log("horizontall")
+                    } else { // component is horizontal
+                        // console.log("nodenummmm1 " + this.board.cell_matrix[i][j + 1].part.nodeNum)
+                        cell.part.node1 = this.board.cell_matrix[i + 1][j].part.nodeNum;
+                        cell.part.node2 = this.board.cell_matrix[i - 1][j].part.nodeNum;
+                    }
+                    this.namePySpicePart(cell);
+                    console.log("the netlist name is " + cell.part.netlistName);
+                    }
+                        // console.log('assigning nodes ' + cell.part.node1 + cell.part.node2 + 'at ' + i + j);
+                }
+            }
+        }
+
+    namePySpicePart(cell) {
+        switch (cell.partName) {
+            case 'Resistor':
+                cell.part.netlistName =  "R" + this.resistorCounter;
+                this.resistorCounter++;
+                break;
+            case 'Voltage':
+                cell.part.netlistName = "V" + this.voltageCounter;
+                this.voltageCounter++;
+                break;
+            case 'Current':
+                cell.part.netlistName = "I" + this.currentCounter;
+                this.currentCounter++
+                break;
+            case 'Wire':
+                alert("bro this is a wire not a component");
+                break;
+        }
+        this.componentSet.add(cell.part);
+
+    }
+
+    makeNetlist(){
+        let netlist = '';
+        this.componentSet.forEach(function(element) {
+            console.log('values are ' + element.netlistName + ' ' + element.node1 + ' ' + element.node2);
+            netlist += element.netlistName + ' ' + element.node1 + ' ' + element.node2 + ' ' + element.value + '\n';
+        });
+        console.log(netlist);
+        }
+
 
 
 }
