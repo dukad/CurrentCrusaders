@@ -16,14 +16,14 @@ export default class netlist {
         this.voltageCounter = 1;
         this.currentCounter = 1;
         this.seen = new Set();
-        this.junctionCoordsx = null;
-        this.junctionCoordsy = null;
-        this.lastCoordsx = null; //this is the last coord before we teleport back to the junction, will be returned to
-        this.lastCoordsy = null;
+        // this.junctionCoordsx = null;
+        // this.junctionCoordsy = null;
+        // this.lastCoordsx = null; //this is the last coord before we teleport back to the junction, will be returned to
+        // this.lastCoordsy = null;
         this.componentSet = new Set();
 
         //magic number lets it teleport back to junction, definitely a better way to do this but im too
-        this.magicNumber = null;
+        // this.magicNumber = null;
 
     }
     // this is where it all begins
@@ -57,17 +57,17 @@ export default class netlist {
             console.log("traverse circuit" + "")
             let array = this.checkDirections(x,y);
             let newCoordinate = this.findStartCoordinates(array, x, y);
-            if(this.magicNumber >= 1 && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== null && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== 'Wire') {
-               console.log(array.length + " array length");
-                console.log("magic numberrrr were teleporting back")
-                this.lastCoordsx = x;
-                this.lastCoordsy = y;
-                newCoordinate.x = this.junctionCoordsx // but go 1 ;
-                newCoordinate.x = this.junctionCoordsy;
-                x = this.junctionCoordsx;
-                y = this.junctionCoordsy;
-                this.magicNumber--;
-            }
+            // if(this.magicNumber >= 1 && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== null && this.board.cell_matrix[newCoordinate.x][newCoordinate.y].partName !== 'Wire') {
+            //    console.log(array.length + " array length");
+            //     console.log("magic numberrrr were teleporting back")
+            //     this.lastCoordsx = x;
+            //     this.lastCoordsy = y;
+            //     newCoordinate.x = this.junctionCoordsx // but go 1 ;
+            //     newCoordinate.x = this.junctionCoordsy;
+            //     x = this.junctionCoordsx;
+            //     y = this.junctionCoordsy;
+            //     this.magicNumber--;
+            // }
             // console.log("new cord " + newCoordinate.x);
             // console.log('new cord y ' + newCoordinate.y);
             this.seen.add(this.board.cell_matrix[x][y]);
@@ -78,11 +78,11 @@ export default class netlist {
             }
             // checking if its a resistor, voltage or current source
 
-            if(this.lastCoordsx !== null){
-                let tempx = this.lastCoordsx;
-                this.lastCoordsx = null
-                this.traverseCircuit(tempx, this.lastCoordsy);
-            }
+            // if(this.lastCoordsx !== null){
+            //     let tempx = this.lastCoordsx;
+            //     this.lastCoordsx = null
+            //     this.traverseCircuit(tempx, this.lastCoordsy);
+            // }
             if (!this.seen.has(this.board.cell_matrix[newCoordinate.x][newCoordinate.y])&&this.board.cell_matrix[newCoordinate.x][newCoordinate.y].part!==null && this.board.cell_matrix[x][y].partName !== 'Wire') {
                 // this.nodeCounter--;
                 console.log('your mom');
