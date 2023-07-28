@@ -83,8 +83,11 @@ export default class Cell {
             if (this.part) {
                 this.part.delete();
             }
+
             this.part = null;
         }
+        this.partName = '';
+        this.nodeNumber = null;
     }
 
     selectCell() {

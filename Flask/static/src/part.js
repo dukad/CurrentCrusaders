@@ -54,6 +54,7 @@ export default class Part {
         });
         this.text.text = '';
         this.graphic.clear();
+        this.reset()
 
         delete this.graphic;
         delete this;
@@ -79,6 +80,9 @@ export default class Part {
         } else {
             return 0;
         }
+    }
+    reset() {
+
     }
 
 

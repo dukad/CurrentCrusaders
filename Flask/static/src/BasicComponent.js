@@ -46,5 +46,11 @@ export default class BasicComponent extends Part {
         this.orientation = direction;
         this.draw();
     }
+    reset() {
+        this.name = 'defaultname';
+        this.node1 = null;
+        this.node2 = null;
+        this.netlistName = null;
+    }
 
 }
