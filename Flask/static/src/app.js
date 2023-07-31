@@ -1,6 +1,7 @@
 import Board from "./board.js";
 import Levels from "./levels.js"
 import netlist from "./netlist.js";
+import confetti from "./confetti.js";
 
 const app = new PIXI.Application(
     {
@@ -105,6 +106,8 @@ valueInput.onchange = () => {
 const checkButton = document.getElementById('CheckButton');
 checkButton.onclick = () => {
         //here would be the solver code call lol
+        // confetti.confetti(); fix this later lol
+
         netlist1.solve()
 }
 const lvl1Button = document.getElementById('level1Button');

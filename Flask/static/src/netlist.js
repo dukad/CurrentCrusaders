@@ -4,6 +4,7 @@ import CurrentSource from "./CurrentSource.js";
 import BasicComponent from "./BasicComponent.js";
 import Board from "./board.js";
 import Part from "./part.js";
+import SendToPython from "./SendToPython.js";
 
 
 export default class netlist {
@@ -38,10 +39,11 @@ export default class netlist {
             console.log("mmm " +element.x + " " + element.y)
         });
         this.labelComponentNodes();
-        // createNetList();
-//        sendToPython();
         console.log(this.componentSet);
         this.makeNetlist();
+
+        SendToPython(netlist);
+
     }
     // recursive method call
     traverseCircuit(x, y) {

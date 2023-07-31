@@ -9,10 +9,10 @@ export default class Levels {
         console.log(this.board.grid_width);
         this.clearLockBoard();
         this.makeHorizontalWire(3, 16, 2, 0x007600);
-        this.makeHorizontalWire(3, 16, 8, 0x007600);
+        this.makeHorizontalWire(3, 16, 8, 0xDBFF33);
         this.makeVerticalWire(3, 16-7, 3, 0x007600);
         this.makeVerticalWire(2, 16-7, 15, 0x007600);
-        this.board.cell_matrix[5][3].partColor = 0xDBFF33;
+        this.board.cell_matrix[5][3].partColor = 0x007600;
         this.board.cell_matrix[5][3].makeResistor(10,1);
         this.board.cell_matrix[5][15].makeVoltageSource(5,1);
         console.log("level 1");

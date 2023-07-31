@@ -35,6 +35,7 @@ export default class Cell {
         this.app.stage.addChild(this.graphic) //stage this graphic
     }
 
+
     delete() {
             this.graphic.clear();
             delete this.graphic;
