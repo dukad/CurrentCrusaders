@@ -1,7 +1,7 @@
 import Board from "./board.js";
 import Levels from "./levels.js"
 import netlist from "./netlist.js";
-import confetti from "./confetti.js";
+import Confetti from "./confetti.js";
 
 const app = new PIXI.Application(
     {
@@ -40,6 +40,7 @@ const grid_width = Math.floor(window.innerWidth / dimension);
 let board = new Board(grid_height, grid_width, dimension, app, 'green');
 let levels = new Levels(board);
 let netlist1 = new netlist(board)
+let confetti = new Confetti(board)
 board.createMatrix();
 window.addEventListener("mousedown", () => {board.changeMode('mousedown')});
 window.addEventListener("mouseup", () => {board.changeMode('mouseup')});
@@ -93,20 +94,21 @@ valueInput.onchange = () => {
         colorButton.onclick = () => {
                 console.log('changing the color scheme');
                 if (board.colorScheme === 'green') {
-                        board.drawColorScheme('pink');
+                        board.changeColorScheme('pink');
                 } else
-                        board.drawColorScheme('green');
+                        board.changeColorScheme('green');
         }
 
         const resetButton = document.getElementById('ResetButton');
         resetButton.onclick = () => {
                 board.unlockBoard();
-                board.resetBoard()
+                board.resetBoard();
+                confetti.removeConfetti();
         }
 const checkButton = document.getElementById('CheckButton');
 checkButton.onclick = () => {
         //here would be the solver code call lol
-        // confetti.confetti(); fix this later lol
+        confetti.confetti();
 
         netlist1.solve()
 }
@@ -130,6 +132,7 @@ lvl4Button.onclick = () => {
         console.log('lvl4');
         levels.createLevel4();
 }
+
 //delete cells at end
 
 

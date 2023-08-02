@@ -60,6 +60,7 @@ export default class Board {
             this.partColor = 0x007600;
             this.colorScheme = 'green';
         }
+        this.createMatrix();
     }
     drawColorScheme(string) {
         this.changeColorScheme(string);

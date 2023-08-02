@@ -1,4 +1,4 @@
-export default class Confetti {
+export default class confetti {
     constructor(board) {
         this.board = board;
         this.color = [0xffffff, 0xff2a5c, 0xe4ff2a, 0xa62aff, 0x3df2da, 0xff2a9c, 0x2aff9f];

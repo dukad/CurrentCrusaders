@@ -78,6 +78,8 @@ export default class netlist {
                 console.log('making this wire node '+ this.nodeCounter + "x: " + y + " y: " + x); //wtf lol why is this flipped??
                 this.board.cell_matrix[x][y].part.nodeNum = this.nodeCounter; // please dont break with magicNumber
                 console.log('now the wire node is' + this.board.cell_matrix[x][y].part.nodeNum);
+                console.log("this nodenum: " + this.board.cell_matrix[x][y].part.nodeNum);
+                console.log("new nodenum: " + this.board.cell_matrix[newCoordinate.x][newCoordinate.y].part.nodeNum);
             }
             // checking if its a resistor, voltage or current source
 
