@@ -92,9 +92,9 @@ valueInput.onchange = () => {
         colorButton.onclick = () => {
                 console.log('changing the color scheme');
                 if (board.colorScheme === 'green') {
-                        board.drawColorScheme('pink');
+                        board.changeColorScheme('pink');
                 } else
-                        board.drawColorScheme('green');
+                        board.changeColorScheme('green');
         }
 
         const resetButton = document.getElementById('ResetButton');
@@ -127,6 +127,7 @@ lvl4Button.onclick = () => {
         console.log('lvl4');
         levels.createLevel4();
 }
+
 //delete cells at end
 
 
